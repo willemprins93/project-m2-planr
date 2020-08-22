@@ -71,7 +71,7 @@ const eventSchema = new Schema(
         required: true
     },
     location: { 
-      type: Schema.Types.ObjectId, ref: 'User' 
+      type: Schema.Types.ObjectId, ref: 'City' 
     },
     description: {
       type: String,
@@ -81,8 +81,7 @@ const eventSchema = new Schema(
         type: String,
     },
     type : {
-      type: String,
-      maxlength: 50
+      type: String
     },
     host: { 
       type: Schema.Types.ObjectId, ref: 'User' 
@@ -115,10 +114,7 @@ const citySchema = new Schema(
     },
     photoUrl: {
       type: String
-    },
-    events: [{
-      type: Schema.Types.ObjectId, ref: 'Event'
-    }]
+    }
   },
     {
       timestamps: true
