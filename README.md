@@ -154,4 +154,4 @@ events: [{ObjectId of 'Event'}]
 
 ### Slides
 
-[Slides Link](https://www.figma.com/file/6r1wKm6IAjQniRgHhxWQnm/Home-page?node-id=74%3A151) 
+[Slides Link](https://www.figma.com/proto/6r1wKm6IAjQniRgHhxWQnm/Home-page?node-id=37%3A29&scaling=contain) 
