@@ -162,7 +162,7 @@ const events= [
         host: 'Willem',
         attendees: 'Alice',
         type :'art',
-        type: 'sport'
+       
     },
     {
         name: 'Jogging',
@@ -182,8 +182,7 @@ const events= [
         photoUrl:'',
         host: 'John',
         attendees:'Alice',
-        type :'food',
-        type: 'sport'
+        type :'food'
     },
     {
         name: 'Nature reserve hiking tour',

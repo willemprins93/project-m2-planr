@@ -1,0 +1,11 @@
+<h1>Events</h1>
+<hr>
+
+{{#each events}}
+  <div>
+    <h3>{{title}}</h3>
+    <a href="/events/{{_id}}">Details</a>
+    <a href="/events/{{_id}}/create">Create</a>
+  </div>
+  <hr>
+{{/each}} 

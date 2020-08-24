@@ -1,0 +1,27 @@
+{{!-- events-create.hbs --}}
+
+<h2>Create an event</h2>
+
+<form action="/events/create" method="post">
+
+  <label for="name-input">Name:</label>
+  <input type="text" name="title" id="name-input" />
+
+  <label for="date-input">Date:</label>
+  <input type="date" name="date" id="date-input" />
+
+  <label for="description-input">Description:</label>
+  <textarea name="description" id="description-input" cols="30" rows="4"> </textarea>
+
+  <label for="location-input">Location:</label>
+  <input type="text" name="location" id="location-input" />
+  
+ <label for="host-input">Host:</label>
+ <input type="text" name="host" id="host-input" />
+
+  <button type="submit">Upload</button>  
+
+  <button type="submit">Add</button>  
+  <button type="submit">Cancel</button>
+
+</form>
