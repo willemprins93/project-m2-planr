@@ -32,9 +32,6 @@ Comments:
 - add comments to events
 - delete your own comments from events
 
-Homepage
-- ...
-
 
 ## ROUTES:
 
