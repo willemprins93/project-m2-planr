@@ -1,5 +1,3 @@
-//auth.routes.js
-
 // routes/auth.routes.js
 
 const { Router } = require('express');
@@ -18,10 +16,10 @@ router.get('/signup', (req, res) => res.render('auth/signup'));
 
 // .post() route ==> to process form data
 router.post('/signup', (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
-  if (!username || !email || !password) {
-    res.render('auth/signup', { errorMessage: 'All fields are mandatory. Please provide your username, email and password.' });
+  if (!firstName || !lastName || !email || !password) {
+    res.render('auth/signup', { errorMessage: 'All fields are mandatory. Please provide your first name, last name, email and password.' });
     return
   }
 
@@ -41,7 +39,8 @@ router.post('/signup', (req, res, next) => {
     .then(hashedPassword => {
       return User.create({
         // username: username
-        username,
+        firstName,
+        lastName,
         email,
         // passwordHash => this is the key from the User model
         //     ^
@@ -51,7 +50,7 @@ router.post('/signup', (req, res, next) => {
     })
     .then(userFromDB => {
       console.log('Newly created user is: ', userFromDB);
-      res.redirect('/userProfile');
+      res.redirect('/login');
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -96,7 +95,7 @@ router.post('/login', (req, res, next) => {
 
         //******* SAVE THE USER IN THE SESSION ********//
         req.session.currentUser = user;
-        res.redirect('/userProfile');
+        res.redirect('/cities');
       } else {
         res.render('auth/login', { errorMessage: 'Incorrect password.' });
       }
@@ -110,7 +109,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/login');
 });
 // router.get('/userProfile', (req, res) => res.render('users/user-profile'));
 
