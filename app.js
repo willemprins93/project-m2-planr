@@ -35,6 +35,8 @@ app.locals.title = 'Express boilerplate made with love by your instructional tea
 //      |  |  |
 //      V  V  V
 app.use('/', require('./routes/index.routes'));
-
+app.use('/auth', require('./routes/auth.routes'));
+app.use('/cities', require('./routes/cities.routes'));
+app.use('/events', require('./routes/events.routes'));
 
 module.exports = app;
