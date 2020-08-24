@@ -1,8 +1,39 @@
 body {
-  padding: 50px;
-  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  padding: 0;
+	margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+	text-align: center;
+	padding: 10px;
+	font-size: 110px;
+}
+
+form {
+	width: 50%;
+	margin: 0 auto;
+	display: block;
+	padding: 20px;
+	
+}
+.btn {
+	display: block;
+	width: 100%;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+p {
+	
+	text-align: center;
 }
 
 a {
   color: #00b7ff;
+}
+
+#error-message {
+  background-color: crimson;
 }

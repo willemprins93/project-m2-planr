@@ -39,8 +39,10 @@ router.post('/signup', (req, res, next) => {
     .then(hashedPassword => {
       return User.create({
         // username: username
-        firstName,
-        lastName,
+        name: {
+          firstName,
+          lastName
+        },
         email,
         // passwordHash => this is the key from the User model
         //     ^
@@ -50,11 +52,12 @@ router.post('/signup', (req, res, next) => {
     })
     .then(userFromDB => {
       console.log('Newly created user is: ', userFromDB);
-      res.redirect('/login');
+      res.redirect('/auth/login');
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render('auth/signup', { errorMessage: error.message });
+        console.log('Error with Mongoose')
       } else if (error.code === 11000) {
         res.status(500).render('auth/signup', {
           errorMessage: 'Username and email need to be unique. Either username or email is already used.'
