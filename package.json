@@ -12,9 +12,15 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.21.0",
+    "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.0.0",
+<<<<<<< HEAD
     "express": "^4.17.1",
+=======
+    "express": "^4.16.3",
+    "express-session": "^1.17.1",
+>>>>>>> 2b4a48aba60be9fcd3af315b7252f9ba617f17d8
     "hbs": "^4.0.1",
     "mongoose": "^5.2.10",
     "morgan": "^1.9.0",
