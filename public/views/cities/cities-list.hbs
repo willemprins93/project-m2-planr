@@ -1,0 +1,11 @@
+<h1>Cities</h1>
+<hr>
+
+{{#each cities}}
+  <div>
+    <img src={{photoUrl}} alt={{name}}/>
+    <h3>{{name}}</h3>
+    <a href="/cities/{{_id}}">Details</a>
+  </div>
+  <hr>
+{{/each}} 

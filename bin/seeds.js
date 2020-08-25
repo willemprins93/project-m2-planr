@@ -7,7 +7,8 @@ const City = require('../models/City.model');
 require('dotenv').config();
 
 // require database configuration
-require('../configs/db.config');
+require('dotenv').config();
+require('../configs/db.config.js');
 
 const events= [
  
