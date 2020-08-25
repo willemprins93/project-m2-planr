@@ -1,11 +1,10 @@
-<h1>Cities</h1>
+<h2>Cities</h2>
 <hr>
 
 {{#each cities}}
   <div>
-    <img src={{photoUrl}} alt={{name}}/>
-    <h3>{{name}}</h3>
-    <a href="/cities/{{_id}}">Details</a>
+    <img src={{this.photoUrl}}/>
+    <h3>{{this.name}}</h3>
   </div>
   <hr>
-{{/each}} 
+{{/each}}   

@@ -13,16 +13,96 @@ require('../configs/db.config.js');
 const events= [
  
   // STOCKHOLM
-      {
+    {
           name: 'Kayaking',
           date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
           location: 'Stockholm',
           description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
-          //photoUrl: '',
+          photoUrl: 'https://unsplash.com/photos/uDKZd5plsBE?w=500&h=500&fit=crop',
           //host: 'John',
           //attendees: 'Alice',
           type: 'sport'
-      },
+    },
+    {
+        name: 'Professional photography tour',
+        date: '2020-09-25',
+        location: 'Stockholm',
+        description:'Learn to take better photographs on a 3-hour private photo workshop across Stockholm. Get tips on composition, exposure, and other techniques', 
+        photoUrl:'https://unsplash.com/photos/7ENDfW96Td8?w=500&h=500&fit=crop',
+        //host: 'Willem',
+        //attendees: 'Alice',
+        type :'art',
+    },
+    {
+        name: 'Jogging',
+        date:  '2020-09-24',
+        location: 'Stockholm',
+        description:'Stay in shape or work up a sweat while exploring the beautiful city of Stockholm.',
+        photoUrl:'https://unsplash.com/photos/jf_YIwWKg8Q?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees:'Alice',
+        type: 'sport'
+    },
+    {
+        name: 'Swedish cooking class',
+        date: '2020-09-18',
+        location: 'Stockholm',
+        description:'Enjoy and learn to cook traditional Swedish courses like marinated salmon with mustard and dill potatoes, elk meatballs or Scanian apple pie.',
+        photoUrl:'https://unsplash.com/photos/xtC0wQtt4Zo?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees:'Alice',
+        type :'food'
+    },
+    {
+        name: 'Nature reserve hiking tour',
+        date: '2020-09-22',
+        location: 'Stockholm',
+        description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',
+        photoUrl:'https://unsplash.com/photos/BKLHxgbYFDI?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees:'Alice,
+        type : 'sport'
+    },
+    {
+        name: 'Sailing',
+        date: '2020-09-24',
+        location: 'Stockholm',
+        description: 'Explore the pristine beauty of thousands of islands in the Stockholm Archipelago on this full-day sailing tour.',
+        photoUrl:'https://unsplash.com/photos/58AiTToabyE?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees:'Alice',
+        type: 'sport'
+    },
+    {
+        name: 'Wildf Safari with Campfire Dinner',
+        date: '2020-09-22',
+        location: 'Stockholm',
+        description: 'Meet moose, deer, wild boars, hares, badgers, foxes and different bird species on this wildlife safari in the beautiful nature close to Stockholm.',
+        photoUrl:'https://unsplash.com/photos/iQRKBNKyRpo?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees: 'Alice',
+        type: 'sport'
+    },
+    {
+        name: 'Bike tour',
+        date: '2020-10-02',
+        location: 'Stockholm',
+        description:'Explore the Swedish capital in the most relaxed and convenient way on a guided bike tour.', 
+        photoUrl:'https://unsplash.com/photos/S9HzTp407iA?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees:'Alice',
+        type: 'sport'
+    },
+    {
+        name: 'Abba Museum Entrance',
+        date: '2020-10-01',
+        location: 'Stockholm',
+        description: 'ABBA The Museum is no ordinary museum. Here you will get to walk in the footsteps of ABBA, the world’s most successful pop group',
+        photoUrl:'https://unsplash.com/photos/NcdG9mK3PBY?w=500&h=500&fit=crop',
+        //host: 'John',
+        //attendees: 'Alice',
+        type :'music'
+    },
 ]
 
 Event.create(events)

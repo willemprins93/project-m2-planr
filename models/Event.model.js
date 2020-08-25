@@ -1,6 +1,8 @@
 //Event.model.js
 
-const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
+//var ObjectId = require('mongoose').ObjectId
 
 const eventSchema = new Schema(
   {
@@ -13,12 +15,13 @@ const eventSchema = new Schema(
         default: Date.now, 
         required: true
     },
-    location: { 
-      type: Schema.Types.ObjectId, ref: 'City' 
+    location:{ 
+      //type: Schema.Types.ObjectId, ref: 'City' 
+      type : String,
     },
     description: {
       type: String,
-      maxlength: 140
+      maxlength: 150
     },
     photoUrl: {
         type: String,

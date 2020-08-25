@@ -80,32 +80,32 @@ router.post('/events/:id/edit', (req, res) => {
     );
 });
 
-// ****************************************************************************************
-// 3.3.POST route to delete a specific event
-// ****************************************************************************************
+// // ****************************************************************************************
+// // 3.3.POST route to delete a specific event
+// // ****************************************************************************************
 
-router.post('/events/:id/delete', (req, res) => {
-  const { id } = req.params;
+// router.post('/events/:id/delete', (req, res) => {
+//   const { id } = req.params;
 
-  Event.findByIdAndDelete(id)
-    .then(() => res.redirect('/events'))
-    .catch(error => console.log(`Error while deleting a event: ${error}`));
-});
+//   Event.findByIdAndDelete(id)
+//     .then(() => res.redirect('/events'))
+//     .catch(error => console.log(`Error while deleting a event: ${error}`));
+// });
 
 // ****************************************************************************************
 // GET route for displaying the event details page
 // ****************************************************************************************
 
-// router.get('/events/:someEventId', (req, res) => {
-//   const { someEventId } = req.params;
-//   Event.findById(someEventId)
-//     .then(foundEvent => {
-//       // console.log('Did I find a event?', foundEvent);
-//       res.render('events-details', foundEvent);
-//     })
-//     .catch(err =>
-//       console.log(`Err while getting the specific event from the  DB: ${err}`)
-//     );
-// });
+router.get('/events/:someEventId', (req, res) => {
+  const { someEventId } = req.params;
+  Event.findById(someEventId)
+    .then(foundEvent => {
+      // console.log('Did I find a event?', foundEvent);
+      res.render('events/events-detail', foundEvent);
+    })
+    .catch(err =>
+      console.log(`Err while getting the specific event from the  DB: ${err}`)
+    );
+});
 
 module.exports = router;

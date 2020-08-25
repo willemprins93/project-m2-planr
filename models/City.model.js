@@ -1,16 +1,22 @@
 //City.model.js
 
-const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
+//var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const citySchema = new Schema(
   { 
+
     name: { 
       type: String,
       required :true
     },
     photoUrl: {
       type: String
-    }
+    },
+    // _id: {
+    //   type:String
+    // }
   },
     {
       timestamps: true
