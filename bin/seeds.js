@@ -5,7 +5,8 @@ const Event = require('../models/Event.model');
 const City = require('../models/City.model');
 
 // require database configuration
-require('../configs/db.config');
+require('dotenv').config();
+require('../configs/db.config.js');
 
 const events= [
  

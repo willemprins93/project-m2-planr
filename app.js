@@ -38,7 +38,7 @@ app.locals.title = 'PLANR APP - Project M2 - Ironhack';
 //      V  V  V
 app.use('/', require('./routes/index.routes'));
 app.use('/auth', require('./routes/auth.routes'));
-// app.use('/cities', require('./routes/cities.routes'));
+app.use('/cities', require('./routes/cities.routes'));
 app.use('/', require('./routes/events.routes'));
 
 module.exports = app;

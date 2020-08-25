@@ -15,7 +15,7 @@ router.get('/events', (req, res) => {
   Event.find()
     .then(allTheEventsFromDB => {
       console.log(allTheEventsFromDB);
-      res.render('events-list',{ events: allTheEventsFromDB });
+      res.render('events/events-list',{ events: allTheEventsFromDB });
     })
     .catch(err =>
       console.log(`Err while getting the events from the  DB: ${err}`)
@@ -26,7 +26,7 @@ router.get('/events', (req, res) => {
 // 2.1.GET route for displaying the form to CREATE a NEW event
 // ****************************************************************************************
 
-router.get('/events/create', (req, res) => res.render('events-create'));
+router.get('/events/create', (req, res) => res.render('events/events-create'));
 
 // ****************************************************************************************
 // 2.2.POST route for saving a new event in the database
@@ -34,11 +34,14 @@ router.get('/events/create', (req, res) => res.render('events-create'));
 
 router.post('/events/create', (req, res) => {
   // console.log(req.body);
-  const { name, date, location, description,photoUrl,type,host,attendees } = req.body;
+  const { name, date, location, description, photoUrl, type, host, attendees } = req.body;
 
-  Event.create({ name, date, location, description,photoUrl,type,host,attendees})
+  Event.create({ name, date, location, description, photoUrl, type, host, attendees})
     // .then(eventFromDB => console.log(`New event created: ${eventFromDB.title}.`))
-    .then(() => res.redirect('/events'))
+    .then((eventCreated) => {
+      console.log('Event succesfully created: ', eventCreated)
+      res.redirect('/events')
+    })
     .catch(error => `Error while creating a new event: ${error}`);
 });
 
@@ -51,7 +54,7 @@ router.get('/events/:id/edit', (req, res) => {
   Event.findById(id)
     .then(eventToEdit => {
       // console.log(eventToEdit);
-      res.render('events-edit', eventToEdit);
+      res.render('events/events-edit', eventToEdit);
     })
     .catch(error =>
       console.log(`Error while getting a single event for edit: ${error}`)
