@@ -1,11 +1,12 @@
 <h2>Events</h2>
 <hr>
 
+<a type="button" href="/events/create">Create</a>
 {{#each events}}
   <div>
     <h3>{{title}}</h3>
     <a href="/events/{{_id}}">Details</a>
-    <a href="/events/{{_id}}/create">Create</a>
   </div>
   <hr>
 {{/each}} 
+
