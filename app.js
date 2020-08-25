@@ -24,12 +24,7 @@ app.use(cookieParser());
 
 // Express View engine setup
 
-<<<<<<< HEAD
-
-app.set('views', path.join(__dirname,'public/views'));
-=======
 app.set('views', path.join(__dirname, '/public/views'));
->>>>>>> 2b4a48aba60be9fcd3af315b7252f9ba617f17d8
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
@@ -42,13 +37,8 @@ app.locals.title = 'PLANR APP - Project M2 - Ironhack';
 //      |  |  |
 //      V  V  V
 app.use('/', require('./routes/index.routes'));
-app.use('/auth', require('./routes/auth.routes'));
-<<<<<<< HEAD
-//app.use('/', require('./routes/cities.routes'));
-app.use('/', require('./routes/events.routes'));
-=======
+app.use('/', require('./routes/auth.routes'));
 // app.use('/cities', require('./routes/cities.routes'));
-// app.use('/events', require('./routes/events.routes'));
->>>>>>> 2b4a48aba60be9fcd3af315b7252f9ba617f17d8
+app.use('/events', require('./routes/events.routes'));
 
 module.exports = app;
