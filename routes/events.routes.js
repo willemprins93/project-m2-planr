@@ -11,7 +11,7 @@ const fileUploader = require('../configs/cloudinary.config');
 // 1. GET route to display all the events
 // ****************************************************************************************
 
-router.get('/events', (req, res) => {
+router.get('/', (req, res) => {
   Event.find()
     .then(allTheEventsFromDB => {
       console.log(allTheEventsFromDB);
@@ -26,13 +26,13 @@ router.get('/events', (req, res) => {
 // 2.1.GET route for displaying the form to CREATE a NEW event
 // ****************************************************************************************
 
-router.get('/events/create', (req, res) => res.render('events/events-create'));
+router.get('/create', (req, res) => res.render('events/events-create'));
 
 // ****************************************************************************************
 // 2.2.POST route for saving a new event in the database
 // ****************************************************************************************
 
-router.post('/events/create', (req, res) => {
+router.post('/create', (req, res) => {
   // console.log(req.body);
   const { name, date, location, description, photoUrl, type, host, attendees } = req.body;
 
@@ -49,7 +49,7 @@ router.post('/events/create', (req, res) => {
 // 3.1.GET route for querying a specific event from the database
 // ****************************************************************************************
 
-router.get('/events/:id/edit', (req, res) => {
+router.get('/:id/edit', (req, res) => {
   const { id } = req.params;
   Event.findById(id)
     .then(eventToEdit => {
@@ -65,7 +65,7 @@ router.get('/events/:id/edit', (req, res) => {
 // 3.2.POST route to save changes after updates in a specific event
 // ****************************************************************************************
 
-router.post('/events/:id/edit', (req, res) => {
+router.post('/:id/edit', (req, res) => {
   const { id } = req.params;
   const { name, date, location, description,photoUrl,type,host,attendees } = req.body;
 
@@ -84,7 +84,7 @@ router.post('/events/:id/edit', (req, res) => {
 // 3.3.POST route to delete a specific event
 // ****************************************************************************************
 
-router.post('/events/:id/delete', (req, res) => {
+router.post('/:id/delete', (req, res) => {
   const { id } = req.params;
 
   Event.findByIdAndDelete(id)
