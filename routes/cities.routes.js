@@ -8,7 +8,7 @@ const City = require('../models/City.model');
 router.get('/', (req, res) => {
     City.find()
         .then(citiesFromDB => {
-            console.log(citiesFromDB);
+            // console.log(citiesFromDB);
             res.render('cities/cities-list',{ cities: citiesFromDB });
         })
         .catch(err =>

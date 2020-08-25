@@ -14,7 +14,7 @@ module.exports = app => {
       resave: false,
       saveUninitialized: true,
       cookie: {
-        maxAge: 300000 // 300 * 1000 ms === 5 min
+        maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year
       },
       store: new MongoStore({
         mongooseConnection: mongoose.connection,
