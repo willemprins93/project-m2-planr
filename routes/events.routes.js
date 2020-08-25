@@ -3,6 +3,7 @@ const router = express.Router();
 
 // ********* require Event model in order to use it *********
 const Event = require("../models/Event.model");
+const User = require('../models/User.model')
 
 // ********* require fileUploader in order to use it *********
 const fileUploader = require("../configs/cloudinary.config");
@@ -38,7 +39,6 @@ router.post("/create", (req, res) => {
 
   const id = req.session.currentUser._id;
 
-
   Event.create({ name, date, location, description, host: id }).then(
     (eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
@@ -58,6 +58,7 @@ router.post("/create", (req, res) => {
 
 router.get("/:id/edit", (req, res) => {
   const { id } = req.params;
+
   Event.findById(id)
     .then((eventToEdit) => {
       // console.log(eventToEdit);
@@ -79,21 +80,17 @@ router.post("/:id/edit", (req, res) => {
     date,
     location,
     description,
-    photoUrl,
-    type,
-    host,
-    attendees,
   } = req.body;
 
   Event.findByIdAndUpdate(
     id,
-    { name, date, location, description, photoUrl, type, host, attendees },
+    { name, date, location, description },
     { new: true }
   )
     .then((updatedEvent) => res.redirect(`/events/${updatedEvent._id}`))
-    .catch((error) =>
+    .catch((error) => {
       console.log(`Error while updating a single event: ${error}`)
-    );
+    });
 });
 
 // // ****************************************************************************************
@@ -114,14 +111,34 @@ router.post("/:id/delete", (req, res) => {
 
 router.get("/:someEventId", (req, res) => {
   const { someEventId } = req.params;
+
   Event.findById(someEventId)
+    .populate('host attendees')
     .then((foundEvent) => {
-      // console.log('Did I find a event?', foundEvent);
+      console.log('Did I find a event?', foundEvent);
       res.render("events/events-detail", foundEvent);
     })
     .catch((err) =>
       console.log(`Err while getting the specific event from the  DB: ${err}`)
     );
 });
+
+//////////////////////////////////////////////////////
+/////////////// ATTEND/BOOK EVENT /////////////////////
+/////////////////////////////////////////////////////
+
+router.post('/:someEventId', (req, res) => {
+  const { someEventId } = req.params;
+
+  const userId = req.session.currentUser._id;
+
+  Event.findByIdAndUpdate(someEventId, {attendees: [userId]})
+  .then(updatedEvent => {
+    console.log('Updated event: ', updatedEvent)
+    res.redirect(`/events/${someEventId}`)
+  });
+})
+
+
 
 module.exports = router;
