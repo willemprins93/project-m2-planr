@@ -100,21 +100,12 @@ router.post("/:id/edit", (req, res) => {
 // // 3.3.POST route to delete a specific event
 // // ****************************************************************************************
 
-<<<<<<< HEAD
-router.post('/:id/delete', (req, res) => {
-  const { id } = req.params;
-
-  Event.findByIdAndDelete(id)
-    .then(() => res.redirect('/events'))
-    .catch(error => console.log(`Error while deleting a event: ${error}`));
-=======
 router.post("/:id/delete", (req, res) => {
   const { id } = req.params;
 
   Event.findByIdAndDelete(id)
     .then(() => res.redirect("/"))
     .catch((error) => console.log(`Error while deleting a event: ${error}`));
->>>>>>> a1895ecf6236c42ac36b24e8ff05ae3c47388494
 });
 
 // ****************************************************************************************
