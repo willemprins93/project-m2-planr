@@ -84,18 +84,13 @@ router.post('/:id/edit', (req, res) => {
 // // 3.3.POST route to delete a specific event
 // // ****************************************************************************************
 
-<<<<<<< HEAD
-// router.post('/events/:id/delete', (req, res) => {
-//   const { id } = req.params;
-=======
 router.post('/:id/delete', (req, res) => {
   const { id } = req.params;
->>>>>>> 10d54a77789efd586f27d589d6871d780ded721d
 
-//   Event.findByIdAndDelete(id)
-//     .then(() => res.redirect('/events'))
-//     .catch(error => console.log(`Error while deleting a event: ${error}`));
-// });
+  Event.findByIdAndDelete(id)
+    .then(() => res.redirect('/events'))
+    .catch(error => console.log(`Error while deleting a event: ${error}`));
+});
 
 // ****************************************************************************************
 // GET route for displaying the event details page

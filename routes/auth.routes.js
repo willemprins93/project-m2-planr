@@ -121,4 +121,6 @@ router.get('/userProfile', (req, res) => {
   res.render('users/user-profile', { userInSession: req.session.currentUser });
 });
 
+const checkAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login')
+
 module.exports = router;
