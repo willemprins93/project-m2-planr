@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const Event = require('../models/Event.model');
 const City = require('../models/City.model');
 
+require('dotenv').config();
+
 // require database configuration
 require('../configs/db.config');
 
