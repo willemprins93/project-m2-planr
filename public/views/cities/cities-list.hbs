@@ -1,10 +1,15 @@
 <h2>Cities</h2>
 <hr>
 
-{{#each cities}}
-  <div>
-    <img src={{this.photoUrl}}/>
-    <h3>{{this.name}}</h3>
-  </div>
-  <hr>
-{{/each}}   
+<div class="row">
+  {{#each cities}}
+    <div class="col-sm-4">
+      <div id="img-box">
+        <a href='/cities/{{_id}}/events'>
+        <img src={{this.photoUrl}}/>
+        </a>
+      </div>
+      <h3>{{this.name}}</h3>
+    </div>
+  {{/each}}
+</div>   
