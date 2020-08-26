@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const City = require('../models/City.model');
+const Event = require('../models/Event.model')
 
 
 router.get('/', (req, res) => {
@@ -16,14 +17,23 @@ router.get('/', (req, res) => {
         );
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id/events', (req, res) => {
     const { id } = req.params
+    let cityDetails;
+
     City.findById(id)
         .then(cityFromDB => {
             console.log('City found: ', cityFromDB)
-            res.render('cities/cities-detail', cityFromDB)
+            Event.find({location: cityFromDB.name})
+                .then(eventsFromDB => {
+                    console.log(`Events found for ${cityFromDB.name}: ${eventsFromDB}`)
+                    res.render('cities/cities-events-list', {city: cityFromDB, events: eventsFromDB})
+                })
+                .catch(err =>{
+                    console.log('Error loading events for ', cityFromDB.name, ':', err)
+                })
         })
-        .catch(err => console.log('Error loading city: ', err))
+        .catch(err => console.log('Error loading city: ', err));
 })
 
 

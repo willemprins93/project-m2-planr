@@ -18,7 +18,7 @@ const events= [
           date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
           location: 'Stockholm',
           description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
-          photoUrl: 'https://unsplash.com/photos/uDKZd5plsBE?w=500&h=500&fit=crop',
+          photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
           //host: 'John',
           //attendees: 'Alice',
           type: 'sport'
@@ -28,7 +28,7 @@ const events= [
         date: '2020-09-25',
         location: 'Stockholm',
         description:'Learn to take better photographs on a 3-hour private photo workshop across Stockholm. Get tips on composition, exposure, and other techniques', 
-        photoUrl:'https://unsplash.com/photos/7ENDfW96Td8?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1518112394663-20d80ef50554?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
         //host: 'Willem',
         //attendees: 'Alice',
         type :'art',
@@ -38,7 +38,7 @@ const events= [
         date:  '2020-09-24',
         location: 'Stockholm',
         description:'Stay in shape or work up a sweat while exploring the beautiful city of Stockholm.',
-        photoUrl:'https://unsplash.com/photos/jf_YIwWKg8Q?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1585473233369-14a97aa923df?ixlib=rb-1.2.1&auto=format&fit=crop&w=2060&q=80',
         //host: 'John',
         //attendees:'Alice',
         type: 'sport'
@@ -48,7 +48,7 @@ const events= [
         date: '2020-09-18',
         location: 'Stockholm',
         description:'Enjoy and learn to cook traditional Swedish courses like marinated salmon with mustard and dill potatoes, elk meatballs or Scanian apple pie.',
-        photoUrl:'https://unsplash.com/photos/xtC0wQtt4Zo?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1564844536311-de546a28c87d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1865&q=80',
         //host: 'John',
         //attendees:'Alice',
         type :'food'
@@ -58,7 +58,7 @@ const events= [
         date: '2020-09-22',
         location: 'Stockholm',
         description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',
-        photoUrl:'https://unsplash.com/photos/BKLHxgbYFDI?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1568454537842-d933259bb258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
         //host: 'John',
         //attendees:'Alice,
         type : 'sport'
@@ -68,7 +68,7 @@ const events= [
         date: '2020-09-24',
         location: 'Stockholm',
         description: 'Explore the pristine beauty of thousands of islands in the Stockholm Archipelago on this full-day sailing tour.',
-        photoUrl:'https://unsplash.com/photos/58AiTToabyE?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1501771924607-209f42a6e7e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80',
         //host: 'John',
         //attendees:'Alice',
         type: 'sport'
@@ -78,7 +78,7 @@ const events= [
         date: '2020-09-22',
         location: 'Stockholm',
         description: 'Meet moose, deer, wild boars, hares, badgers, foxes and different bird species on this wildlife safari in the beautiful nature close to Stockholm.',
-        photoUrl:'https://unsplash.com/photos/iQRKBNKyRpo?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
         //host: 'John',
         //attendees: 'Alice',
         type: 'sport'
@@ -88,7 +88,7 @@ const events= [
         date: '2020-10-02',
         location: 'Stockholm',
         description:'Explore the Swedish capital in the most relaxed and convenient way on a guided bike tour.', 
-        photoUrl:'https://unsplash.com/photos/S9HzTp407iA?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1563460937-8e3fd7f161f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
         //host: 'John',
         //attendees:'Alice',
         type: 'sport'
@@ -98,7 +98,7 @@ const events= [
         date: '2020-10-01',
         location: 'Stockholm',
         description: 'ABBA The Museum is no ordinary museum. Here you will get to walk in the footsteps of ABBA, the world’s most successful pop group',
-        photoUrl:'https://unsplash.com/photos/NcdG9mK3PBY?w=500&h=500&fit=crop',
+        photoUrl:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
         //host: 'John',
         //attendees: 'Alice',
         type :'music'
@@ -117,39 +117,39 @@ Event.create(events)
 const cities = [
     {
         name: 'London',
-        photoUrl: 'https://https://unsplash.com/photos/Q6UehpkBSnQ?w=500&h=500&fit=crop' 
+        photoUrl: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80' 
     },
     {
         name: 'Rome',
-        photoUrl: 'https://https://unsplash.com/photos/s87bBFZviAU?w=500&h=500&fit=crop'  
+        photoUrl: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'  
     },
     {
         name: 'Amsterdam',
-        photoUrl: 'https://unsplash.com/photos/0b1H4Q134NY?w=500&h=500&fit=crop'
+        photoUrl: 'https://images.unsplash.com/photo-1571173729436-98de522c64dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
     },
     {
         name: 'Lisbon',
-        photoUrl: 'https://https://unsplash.com/photos/rYVmXecm64Q?w=500&h=500&fit=crop' 
+        photoUrl: 'https://images.unsplash.com/photo-1546375982-c22276aa12f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2130&q=80' 
     },
     {
         name: 'Stockholm',
-        photoUrl: 'https://https://unsplash.com/photos/3cwvFD-YPtk?w=500&h=500&fit=crop'
+        photoUrl: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
     },
     {
         name: 'Seville',
-        photoUrl: 'https://https://unsplash.com/photos/BtaiYO5Syk4?w=500&h=500&fit=crop'
+        photoUrl: 'https://images.unsplash.com/photo-1588328355754-b78ad593d6c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
     },
     {
-        name: 'Sidney',
-        photoUrl: 'https://https://unsplash.com/photos/5UHgm0Q3n4Y?w=500&h=500&fit=crop' 
+        name: 'Sydney',
+        photoUrl: 'https://images.unsplash.com/photo-1506374322094-6021fc3926f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2212&q=80' 
     },
     {
         name: 'Paris',
-        photoUrl: 'https://https://unsplash.com/photos/3xwdarHxHqI?w=500&h=500&fit=crop'
+        photoUrl: 'https://images.unsplash.com/photo-1541264161754-445bbdd7de52?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80'
     },
     {
         name: 'New York',
-        photoUrl: 'https://https://unsplash.com/photos/UExx0KnnkjY?w=500&h=500&fit=crop'
+        photoUrl: 'https://images.unsplash.com/photo-1522083165195-3424ed129620?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2360&q=80'
     }
 ]
 

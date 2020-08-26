@@ -34,6 +34,27 @@ a {
   color: #00b7ff;
 }
 
+#img-box {
+  	height: 200px;
+	width: 300px;
+	overflow: hidden;
+}
+
+#img-box img {
+	max-height: 100%;
+	display: block;
+}
+
+#img-banner {
+	height: 400px;
+	width: 100%;
+	object-fit: cover;
+}
+
+#img-banner img {
+	height: 400px;
+}
+
 #error-message {
   background-color: crimson;
 }
