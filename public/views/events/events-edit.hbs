@@ -1,0 +1,20 @@
+<h2>Edit your event</h2>
+
+<form action="/events/{{_id}}/edit" method="post">
+
+  <label for="name-input">Event name:</label>
+  <input type="text" name="name" id="name-input" value="{{name}}"/>
+
+  <label for="date-input">Date and time:</label>
+  <input type="date" name="date" id="date-input" value={{date}} />
+
+  <label for="description-input">Description:</label>
+  <textarea name="description" id="description-input" cols="30" rows="4"> {{description}} </textarea>
+
+  <label for="location-input">Location:</label>
+  <input type="text" name="location" id="location-input" value="{{location}}" />
+  
+
+  <button type="submit">Save changes</button>  
+
+</form>
