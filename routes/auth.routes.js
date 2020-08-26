@@ -2,16 +2,18 @@
 
 const { Router } = require('express');
 const router = new Router();
-
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
-
 const User = require('../models/User.model');
 const mongoose = require('mongoose');
 
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////// SIGNUP //////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
+
+
+const checkAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login')
+
 
 // .get() route ==> to display the signup form to users
 router.get('/signup', (req, res) => res.render('auth/signup'));
@@ -100,7 +102,6 @@ router.post('/login', (req, res, next) => {
 
         //******* SAVE THE USER IN THE SESSION ********//
         req.session.currentUser = user;
-        console.log(req.session)
         res.redirect('/cities');
       } else {
         res.render('auth/login', { errorMessage: 'Incorrect password.' });
@@ -124,6 +125,6 @@ router.get('/userProfile', (req, res) => {
   res.render('users/user-profile', { userInSession: req.session.currentUser });
 });
 
-const checkAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login')
+
 
 module.exports = router;
