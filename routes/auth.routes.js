@@ -170,20 +170,23 @@ router.post("auth/profile/edit-profile/logout", (req, res) => {
     if (req.session.currentUser = user){
 
       User
+        .populate(eventsHosting)
+        .populate(eventsAttending)
         .findById(id)
         .then(userFromDB => {
             console.log('User found : ', userFromDB)
             Event.find({location: cityFromDB.name})
                 .then(eventsFromDB => {
                     console.log(`Events found for ${userFromDB.name}: ${userFromDB}`)
-                    res.render(users/user-profile',{userInSession: req.session.currentUser, events: eventsFromDB})
+                    res.render('users/user-profile',{userInSession: req.session.currentUser, events: eventsFromDB})
                 })
-            }
-            
-    }else {
+            });
+    }
+    else {
       res.redirect('/login')
     }
     });
+
   
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// EDIT AND UPDATE USER PROFILE ///////////////////
@@ -201,15 +204,16 @@ router.post("auth/profile/edit-profile/logout", (req, res) => {
     const { firstName, lastName, email, pasword,photoUrl, eventsAttending } = req.body;
     const userId = req.session.currentUser._id
 
-        let photoUrl;
-      if (req.file) {
-        photoUrl = req.file.path;
-      } else {
-        photoUrl = req.body.existingImage;
-      }
+      //   let photoUrl;
+      // if (req.file) {
+      //   photoUrl = req.file.path;
+      // } else {
+      //   photoUrl = req.body.existingImage;
+      // }
      
     User
-      .populate('host attendees')
+      .populate(eventsHosting)
+      .populate(eventsAttending)
       .findByIdAndUpdate(userId, {firstName, lastName, email, pasword,photoUrl, eventsAttending })
       .then((updatedProfile) => res.redirect(`/profile/user-edit ${updatedProfile._id}`))
       .catch((error) => {

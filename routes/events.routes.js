@@ -135,5 +135,4 @@ router.post('/:someEventId', (req, res) => {
 })
 
 
-
 module.exports = router;
