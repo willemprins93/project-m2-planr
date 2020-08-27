@@ -8,6 +8,9 @@ const User = require('../models/User.model')
 // ********* require fileUploader in order to use it *********
 const fileUploader = require("../configs/cloudinary.config");
 
+// // ********* require date-fns *********************************
+// const { format, compareAsc } = require('date-fns')
+
 // ****************************************************************************************
 // 1. GET route to display all the events
 // ****************************************************************************************
@@ -35,21 +38,16 @@ router.get("/create", (req, res) => res.render("events/events-create"));
 
 router.post("/create", (req, res) => {
   // console.log(req.body);
-  const { name, date, location, description } = req.body;
+  const { name, date, location, description, type } = req.body;
 
   const id = req.session.currentUser._id;
 
-  Event.create({ name, date, location, description, host: id }).then(
-    (eventFromDB) => {
+  Event.create({ name, date, location, description, type, host: id })
+    .then((eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
       res.redirect("/events");
-    }
-  );
-  //   .then((eventCreated) => {
-  //     console.log('Event succesfully created: ', eventCreated)
-  //     res.redirect('/')
-  //   })
-  //   .catch(error => `Error while creating a new event: ${error}`);
+    })
+    .catch(error => console.log(`Error while creating a new event: ${error}`));
 });
 
 // ****************************************************************************************
@@ -61,8 +59,7 @@ router.get("/:id/edit", (req, res) => {
 
   Event.findById(id)
     .then((eventToEdit) => {
-      // console.log(eventToEdit);
-      res.render("events/events-edit", eventToEdit);
+        res.render("events/events-edit", eventToEdit);
     })
     .catch((error) =>
       console.log(`Error while getting a single event for edit: ${error}`)
@@ -80,11 +77,19 @@ router.post("/:id/edit", (req, res) => {
     date,
     location,
     description,
+    type
   } = req.body;
+
+  // attempt at reformatting date
+  // console.log('Original date: ', date)
+
+  // const formattedDate = format(date, 'YYYY/MM/DD')
+
+  // console.log('Formatted date: ', formattedDate)
 
   Event.findByIdAndUpdate(
     id,
-    { name, date, location, description },
+    { name, date, location, description, type },
     { new: true }
   )
     .then((updatedEvent) => res.redirect(`/events/${updatedEvent._id}`))
@@ -101,7 +106,7 @@ router.post("/:id/delete", (req, res) => {
   const { id } = req.params;
 
   Event.findByIdAndDelete(id)
-    .then(() => res.redirect("/"))
+    .then(() => res.redirect("/events"))
     .catch((error) => console.log(`Error while deleting a event: ${error}`));
 });
 
@@ -111,12 +116,21 @@ router.post("/:id/delete", (req, res) => {
 
 router.get("/:someEventId", (req, res) => {
   const { someEventId } = req.params;
+  const isHosting = true;
 
   Event.findById(someEventId)
     .populate('host attendees')
     .then((foundEvent) => {
       console.log('Did I find a event?', foundEvent);
-      res.render("events/events-detail", foundEvent);
+      // console.log(req.session.currentUser._id)
+      // console.log(foundEvent.host._id)
+      if(req.session.currentUser._id == foundEvent.host._id) {
+        res.render("events/events-detail", { event: foundEvent, isHosting });
+        console.log('HOSTING TRUE')
+      } else {
+        res.render("events/events-detail", { event: foundEvent });
+        console.log('HOSTING FALSE')
+      }
     })
     .catch((err) =>
       console.log(`Err while getting the specific event from the  DB: ${err}`)

@@ -3,22 +3,29 @@
 <h1>{{title}}</h1>
 <hr>
 
-<form action='/events/{{_id}}' method='post'>
-    <button type="submit">Book</button> 
+<form action='/events/{{event._id}}' method='post'>
+    <button type="submit" class="btn btn-primary">Book</button> 
 </form>
 
+{{#if isHosting}}
+<form action='/events/{{event._id}}/edit' method='get'>
+    <button type="submit" class="btn btn-secondary">Edit</button> 
+</form>
 
-<a href="/events/{{_id}}/edit">Edit</a>
+<form action='/events/{{event._id}}/delete' onsubmit="return confirm('Are you sure you want to delete this event?');" method='post'>
+    <button type="submit" class="btn btn-danger">Delete</button> 
+</form>
+{{/if}}
 
 {{!-- <button type="submit">Cancel</button> --}}
 
-<p>Event Name: {{name}}</p>
-<p>Date and Time:{{date}}</p>
-<p>Description: {{description}}</p>
-<p>Event Type: {{type}}</p>
-<p>Location: {{location}}</p>
-<p>Host: {{host.name.firstName}} {{host.name.lastName}}</p>
-<p>Attendees: {{#each attendees}}
+<p>Event Name: {{event.name}}</p>
+<p>Date and Time:{{event.date}}</p>
+<p>Description: {{event.description}}</p>
+<p>Event Type: {{event.type}}</p>
+<p>Location: {{event.location}}</p>
+<p>Host: {{event.host.name.firstName}} {{event.host.name.lastName}}</p>
+<p>Attendees: {{#each event.attendees}}
     {{name.firstName}} {{name.lastName}}
     {{/each}}</p>
 <hr>
