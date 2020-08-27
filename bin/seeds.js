@@ -11,16 +11,18 @@ require('dotenv').config();
 require('dotenv').config();
 require('../configs/db.config.js');
 
-const user= [
- 
-    // STOCKHOLM
+const users= [
+    
       {
-            firstName: 'John',
-            lastName: 'de Boer',
+            name :{
+                firstName: 'John',
+                lastName: 'de Boer'
+            },
             email: 'john@deboer.com',
-            photoUrl:'https://unsplash.com/photos/bZtJgeehRVs?w=152&h=152&fit=crop&crop=faces',
-            eventsHosting:'',
-            eventsAttending:'',
+            photoUrl:'  w=152&h=152&fit=crop&crop=faces',
+            eventsHosting:['Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance'],
+            //eventsHosting:'Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance',
+            eventsAttending: 'Kayaking',
             passwordHash:'$2a$10$p/DTjgceHCjYDiG92eSSbO1YleGD0reS2O/0p.0fL5bXhZkP7CWMK'
        },     
       {  
@@ -28,8 +30,9 @@ const user= [
             lastName: 'Rivera',
             email: 'alice@rivera.com',
             photoUrl:'https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces',
-            eventsHosting:'',
-            eventsAttending:'',
+            eventsHosting:'Kayaking',
+            eventsAttending: ['Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance'],
+            //eventsAttending: 'Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance',
             passwordHash:'$2a$10$OK4iB5fmvnIomeWLt1fiouGgtt5lLLWI2lRKSxiQBx2iOoU3qM/Eu'
       },
 ]
@@ -46,14 +49,16 @@ const events= [
  
   // STOCKHOLM
     {
-          name: 'Kayaking',
-          date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
-          location: 'Stockholm',
-          description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
-          photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-          host: 'Alice Rivera',
-          attendees: 'John de Boer',
-          type: 'sport','outdoor'
+        name: 'Kayaking',
+        date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
+        location: 'Stockholm',
+        description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
+        photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
+        host: 'Alice Rivera',
+        attendees: ['John de Boer'],
+        host: [],
+        attendees:[],
+        type: ['sport','outdoor']
     },
     {
         name: 'Professional photography tour',
@@ -61,9 +66,11 @@ const events= [
         location: 'Stockholm',
         description:'Learn to take better photographs on a 3-hour private photo workshop across Stockholm. Get tips on composition, exposure, and other techniques', 
         photoUrl:'https://images.unsplash.com/photo-1518112394663-20d80ef50554?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-        host: 'John de Boer',
-        attendees: 'Alice',
-        type :'art','culture'
+        //host: 'John de Boer',
+        //attendees: 'Alice Rivera',
+        host: [],
+        attendees:[],
+        type :['art','culture'],
     },
     {
         name: 'Jogging',
@@ -72,8 +79,8 @@ const events= [
         description:'Stay in shape or work up a sweat while exploring the beautiful city of Stockholm.',
         photoUrl:'https://images.unsplash.com/photo-1585473233369-14a97aa923df?ixlib=rb-1.2.1&auto=format&fit=crop&w=2060&q=80',
         host: 'John de Boer',
-        attendees:'Alice',
-        type: 'sport','outdoor'
+        attendees:'Alice Rivera',
+        type: ['sport','outdoor']
     },
     {
         name: 'Swedish cooking class',
@@ -93,7 +100,7 @@ const events= [
         photoUrl:'https://images.unsplash.com/photo-1568454537842-d933259bb258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
         host: 'John de Boer',
         attendees: 'Alice Rivera',
-        type : 'sport','outdoor'
+        type : ['sport','outdoor']
     },
     {
         name: 'Sailing',
@@ -103,7 +110,7 @@ const events= [
         photoUrl:'https://images.unsplash.com/photo-1501771924607-209f42a6e7e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80',
         host: 'John de Boer',
         attendees:'Alice Rivera',
-        type: 'sport','outdoor'
+        type: ['sport','outdoor']
     },
     {
         name: 'Node coding class',
@@ -113,7 +120,7 @@ const events= [
         photoUrl:'https://unsplash.com/photos/aOC7TSLb1o8&auto=format&fit=crop&w=2100&q=80',
         host: 'John de Boer',
         attendees: 'Alice Rivera',
-        type: 'tech','networking'
+        type: ['tech','networking']
     },
     {
         name: 'Bike tour',
@@ -121,9 +128,9 @@ const events= [
         location: 'Stockholm',
         description:'Explore the Swedish capital in the most relaxed and convenient way on a guided bike tour.', 
         photoUrl:'https://images.unsplash.com/photo-1563460937-8e3fd7f161f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-        host: 'John',
+        host: 'John de Boer',
         attendees:'Alice Rivera',
-        type: 'sport','outdoor'
+        type: ['sport','outdoor']
     },
     {
         name: 'Abba Museum Entrance',
@@ -131,9 +138,9 @@ const events= [
         location: 'Stockholm',
         description: 'ABBA The Museum is no ordinary museum. Here you will get to walk in the footsteps of ABBA, the world’s most successful pop group',
         photoUrl:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-        host: 'John',
+        host: 'John de Boer',
         attendees: 'Alice Rivera',
-        type :'music','culture'
+        type :['music','culture']
     },
 ]
 

@@ -30,14 +30,16 @@ const userSchema = new Schema(
     },
     eventsHosting: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Event",
+        //type: Schema.Types.ObjectId,
+        type : String,
+        //ref: "Event",
       },
     ],
     eventsAttending: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Event",
+        //type: Schema.Types.ObjectId,
+        type : String,
+        //ref: "Event",
       },
     ],
     passwordHash: {
