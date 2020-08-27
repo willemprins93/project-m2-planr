@@ -30,7 +30,8 @@ form {
 .container-profile {
     max-width: 93.5rem;
     margin: 0 auto;
-    padding: 0 2rem;
+	padding: 0 2rem;
+	border: 2px solid red;
 }
 
 .profile {
@@ -58,8 +59,9 @@ form {
 
 .profile-user-settings {
     float: left;
-    width: calc(66.666% - 2rem)
-    margin-top: 1.1rem;
+    width: 50% vw;
+	margin-top: 1.1rem;
+	border: 2px solid black;
 }
   
 
@@ -166,6 +168,7 @@ a {
 }
 
 #img-box {
+	border-radius: 5%;
   	height: 200px;
 	width: 300px;
 	overflow: hidden;

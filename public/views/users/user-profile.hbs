@@ -5,8 +5,8 @@
        			 <img src={{user.photoUrl}} alt={{user.name}}>
         <div class="profile-user-settings"></div>
 				 <h1 class="profile-user-name">{{user.firstName}} {{user.lastName}}</h1>
-            <form action="/auth/profile/{{_id}}/edit" method="POST">
-                <button class="btn profile-edit-btn"></button>>Edit Profile</button>
+            <form action="/auth/profile/edit" method="get">
+                <button class="btn profile-edit-btn">Edit Profile</button>
             </form>	
         </div>    
 		</div>			
@@ -14,11 +14,11 @@
 </header>
 <main>
 <div class="row">
-<h2>This {{user.firstName}} {{user.lastName}} has attended past events </h2>
-  {{#each events}}
+<h2>{{user.name.firstName}} {{user.name.lastName}} has attended past events: </h2>
+  {{#each user.eventsAttending}}
     <div class="col-sm-4">
       <div id="img-box">
-        <a href='/events/{{_id}}/events'>
+        <a href='/events/{{this._id}}'>
         <img src={{this.photoUrl}}/>
         </a>
       </div>
@@ -26,7 +26,7 @@
     </div>
   {{/each}}
 </div>   
-<h2>This {{user.firstName}} {{user.lastName}} is going to attend the following events </h2>
+<h2>{{user.firstName}} {{user.lastName}} is going to attend the following events: </h2>
 <div class="row">
   {{#each events}}
     <div class="col-sm-4">

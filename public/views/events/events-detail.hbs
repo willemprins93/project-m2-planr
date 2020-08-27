@@ -18,9 +18,12 @@
 {{/if}}
 
 {{!-- <button type="submit">Cancel</button> --}}
+<div id=img-box>
+    <img src={{event.photoUrl}}>
+</div>
 
 <p>Event Name: {{event.name}}</p>
-<p>Date and Time:{{event.date}}</p>
+<p>Date and Time: {{justDate}} at {{justTime}}</p>
 <p>Description: {{event.description}}</p>
 <p>Event Type: {{event.type}}</p>
 <p>Location: {{event.location}}</p>

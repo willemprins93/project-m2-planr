@@ -3,16 +3,16 @@
 <form action="/events/{{_id}}/edit" method="post">
 
   <label for="name-input">Event name:</label>
-  <input type="text" name="name" id="name-input" value="{{name}}" required/>
+  <input type="text" name="name" id="name-input" value="{{event.name}}" required/>
 
   <label for="date-input">Date and time:</label>
-  <input type="date" name="date" id="date-input" value={{date}} required/>
+  <input type="date" name="date" id="date-input" value={{niceDate}} required/>
 
   <label for="description-input">Description:</label>
-  <textarea name="description" id="description-input" cols="30" rows="4" required> {{description}} </textarea>
+  <textarea name="description" id="description-input" cols="30" rows="4" required> {{event.description}} </textarea>
 
   <label for="location-input">Location:</label>
-  <select name="location" id="location-input" selected={{location}} required>
+  <select name="location" id="location-input" required>
     <option value="" selected="disabled hidden">Choose location</option>
     <option value="Amsterdam">Amsterdam</option>
     <option value="Lisbon">Lisbon</option>

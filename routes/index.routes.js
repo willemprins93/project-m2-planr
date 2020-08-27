@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page */
-router.get('/', (req, res, next) => res.redirect('index'));
+router.get('/', (req, res, next) => {
+    if(req.session.currentUser){
+        res.redirect('/cities')
+    } else {
+        res.redirect('/auth/login')
+    }
+});
 
 module.exports = router;

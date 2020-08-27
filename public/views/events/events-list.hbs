@@ -1,13 +1,18 @@
 <h2>Events</h2>
 <hr>
 
-<a type="button" href="/events/create">Create</a>
+<a type="button" class="btn btn-secondary" href="/events/create">Create</a>
+<br>
 
-{{#each events}}
-  <div>
-    <h4>{{name}}</h4>
-    <a href="/events/{{_id}}">Details</a>
-  </div>
-  <hr>
-{{/each}} 
-
+<div class="row">
+  {{#each events}}
+    <div class="col-sm-4">
+      <div id="img-box">
+        <a href='/events/{{this._id}}'>
+        <img src={{this.photoUrl}}/>
+        </a>
+      </div>
+      <h3>{{this.name}}</h3>
+    </div>
+  {{/each}}
+</div>   

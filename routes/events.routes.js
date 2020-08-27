@@ -8,8 +8,8 @@ const User = require('../models/User.model')
 // ********* require fileUploader in order to use it *********
 const fileUploader = require("../configs/cloudinary.config");
 
-// // ********* require date-fns *********************************
-// const { format, compareAsc } = require('date-fns')
+// ********* require date-fns *********************************
+const { format, compareAsc } = require('date-fns')
 
 // ****************************************************************************************
 // 1. GET route to display all the events
@@ -20,6 +20,9 @@ const fileUploader = require("../configs/cloudinary.config");
 
 
 router.get("/", (req, res) => {
+  if (!req.session.currentUser) {
+    res.redirect('/auth/login')
+  }
   Event.find()
     .then((allTheEventsFromDB) => {
       console.log(allTheEventsFromDB);
@@ -34,7 +37,12 @@ router.get("/", (req, res) => {
 ////////////////////// CREATE A NEW EVENT //////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-router.get("/create", (req, res) => res.render("events/events-create"));
+router.get("/create", (req, res) => {
+  if (!req.session.currentUser) {
+    res.redirect('/auth/login')
+  }
+  res.render("events/events-create")
+});
 
 router.post("/create", (req, res) => {
   // console.log(req.body);
@@ -55,11 +63,14 @@ router.post("/create", (req, res) => {
 ////////////////////////////////////////////////////////////////////////
 
 router.get("/:id/edit", (req, res) => {
+  if (!req.session.currentUser) {
+    res.redirect('/auth/login')
+  }
   const { id } = req.params;
 
   Event.findById(id)
     .then((eventToEdit) => {
-        res.render("events/events-edit", eventToEdit);
+        res.render("events/events-edit", {event: eventToEdit, niceDate });
     })
     .catch((error) =>
       console.log(`Error while getting a single event for edit: ${error}`)
@@ -113,6 +124,9 @@ router.post("/:id/delete", (req, res) => {
 
 
 router.get("/:someEventId", (req, res) => {
+  if (!req.session.currentUser) {
+    res.redirect('/auth/login')
+  }
   const { someEventId } = req.params;
   const isHosting = true;
 
@@ -120,13 +134,17 @@ router.get("/:someEventId", (req, res) => {
     .populate('host attendees')
     .then((foundEvent) => {
       console.log('Did I find a event?', foundEvent);
+      const justDate = format(foundEvent.date, 'dd/MM/yyyy')
+      const justTime = format(foundEvent.date, 'HH:mm')
+      console.log('Just date: ', justDate)
+      console.log('Just time: ', justTime)
       // console.log(req.session.currentUser._id)
       // console.log(foundEvent.host._id)
-      if(req.session.currentUser._id == foundEvent.host._id) {
-        res.render("events/events-detail", { event: foundEvent, isHosting });
+      if (foundEvent.host && foundEvent.host._id.toString() === req.session.currentUser._id.toString()) {
+        res.render("events/events-detail", { event: foundEvent, isHosting, justDate, justTime });
         console.log('HOSTING TRUE')
       } else {
-        res.render("events/events-detail", { event: foundEvent });
+        res.render("events/events-detail", { event: foundEvent, justDate, justTime });
         console.log('HOSTING FALSE')
       }
     })
@@ -146,9 +164,14 @@ router.post('/:someEventId', (req, res) => {
 
   Event.findByIdAndUpdate(someEventId, {attendees: [userId]})
   .then(updatedEvent => {
-    console.log('Updated event: ', updatedEvent)
-    res.redirect(`/events/${someEventId}`)
+    User.findByIdAndUpdate(userId, {eventsAttending: [updatedEvent]}, {new: true})
+      .then(updatedUser => {
+        res.redirect(`/events/${someEventId}`)
+        console.log('Updated event: ', updatedEvent)
+        console.log('Updated user: ', updatedUser)
+      })
   });
+
 })
 
 
