@@ -7,6 +7,9 @@ const Event = require('../models/Event.model')
 
 
 router.get('/', (req, res) => {
+    if (!req.session.currentUser) {
+        res.redirect('/auth/login')
+    }
     City.find()
         .then(citiesFromDB => {
             // console.log(citiesFromDB);
@@ -18,8 +21,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id/events', (req, res) => {
+    if (!req.session.currentUser) {
+        res.redirect('/auth/login')
+    }
     const { id } = req.params
-    let cityDetails;
 
     City.findById(id)
         .then(cityFromDB => {

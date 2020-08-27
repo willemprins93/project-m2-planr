@@ -147,11 +147,10 @@ router.post("/login", (req, res, next) => {
 ////////////////////////////////////////////////////////////////////////
 
 router.post("auth/profile/edit-profile/logout", (req, res) => {
-  
-      if (!user) {
-        req.session.destroy();
-        res.redirect("/login");
-      }
+  if (!user) {
+    req.session.destroy();
+    res.redirect("/login");
+  }
 });
 
 // router.get('/userProfile', (req, res) => res.render('users/user-profile'));
@@ -161,68 +160,72 @@ router.post("auth/profile/edit-profile/logout", (req, res) => {
 //   res.render("users/user-profile", { userInSession: req.session.currentUser });
 // });
 
-
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// USER PROFILE /////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-  router.get('/profile/:id', (req, res) => {
-    if (req.session.currentUser = user){
+router.get("/profile", (req, res) => {
+  if (req.session.currentUser) {
+    const id = req.session.currentUser._id;
 
-      User
-        .populate(eventsHosting)
-        .populate(eventsAttending)
-        .findById(id)
-        .then(userFromDB => {
-            console.log('User found : ', userFromDB)
-            Event.find({location: cityFromDB.name})
-                .then(eventsFromDB => {
-                    console.log(`Events found for ${userFromDB.name}: ${userFromDB}`)
-                    res.render('users/user-profile',{userInSession: req.session.currentUser, events: eventsFromDB})
-                })
-            });
-    }
-    else {
-      res.redirect('/login')
-    }
-    });
+    User.findById(id)
+      .populate("eventsHosting")
+      .populate("eventsAttending")
+      .then((userFromDB) => {
+        console.log("User found : ", userFromDB);
+        res.render("users/user-profile", { user: userFromDB });
+      })
+      .catch(error => console.log('Error retrieving user profile: ', error))
+  } else {
+    res.redirect("/auth/login");
+  }
+});
 
-  
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// EDIT AND UPDATE USER PROFILE ///////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-  router.get('/profile/:id/edit', (req, res) => {
-    if (req.session.currentUser = user){
-    res.render('users/user-edit', {userInSession: req.session.currentUser})
+router.get("/profile/edit", (req, res) => {
+  if (req.session.currentUser) {
+    res.render("users/user-edit", { user: req.session.currentUser });
   }
-  });
-  // with cloudinary to upload images
-  router.put('/profile/id:/edit',fileUploader.single('image'), (req, res) => {
-    if (req.session.currentUser = user){
+});
+// with cloudinary to upload images
+router.post("/profile/edit", (req, res) => {
+  // fileUploader.single("image")
+    const {
+      firstName,
+      lastName,
+      email
+    } = req.body;
+    console.log('form data: ', firstName, lastName, email)
+    const userId = req.session.currentUser._id;
 
-    const { firstName, lastName, email, pasword,photoUrl, eventsAttending } = req.body;
-    const userId = req.session.currentUser._id
+    //   let photoUrl;
+    // if (req.file) {
+    //   photoUrl = req.file.path;
+    // } else {
+    //   photoUrl = req.body.existingImage;
+    // }
 
-      //   let photoUrl;
-      // if (req.file) {
-      //   photoUrl = req.file.path;
-      // } else {
-      //   photoUrl = req.body.existingImage;
-      // }
-     
     User
-      .populate(eventsHosting)
-      .populate(eventsAttending)
-      .findByIdAndUpdate(userId, {firstName, lastName, email, pasword,photoUrl, eventsAttending })
-      .then((updatedProfile) => res.redirect(`/profile/user-edit ${updatedProfile._id}`))
+      .findByIdAndUpdate(userId, {
+        name: {
+          firstName,
+          lastName
+        },
+        email
+      }, 
+      {
+        new: true
+      })
+      .then((updatedProfile) => {
+        console.log('Updated succesfully! Yey!', updatedProfile)
+        res.redirect(`/auth/profile`)
+      })
       .catch((error) => {
-        console.log(`Error while updating profile: ${error}`)
+        console.log(`Error while updating profile: ${error}`);
       });
-  }
-  else {
-    res.redirect('/login')
-  }
-  });
+});
 
 module.exports = router;

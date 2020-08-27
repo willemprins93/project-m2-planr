@@ -11,28 +11,28 @@ require('dotenv').config();
 require('dotenv').config();
 require('../configs/db.config.js');
 
-const users= [
-    
+const users = [
+ 
       {
-            name :{
+            name: {
                 firstName: 'John',
                 lastName: 'de Boer'
             },
             email: 'john@deboer.com',
-            photoUrl:'  w=152&h=152&fit=crop&crop=faces',
-            eventsHosting:['Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance'],
-            //eventsHosting:'Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance',
-            eventsAttending: 'Kayaking',
+            photoUrl:'https://unsplash.com/photos/bZtJgeehRVs?w=152&h=152&fit=crop&crop=faces',
+            eventsHosting:[],
+            eventsAttending:[],
             passwordHash:'$2a$10$p/DTjgceHCjYDiG92eSSbO1YleGD0reS2O/0p.0fL5bXhZkP7CWMK'
        },     
       {  
-            firstName: 'Alice',
-            lastName: 'Rivera',
+            name: {
+                firstName: 'Alice',
+                lastName: 'Rivera'
+            },
             email: 'alice@rivera.com',
             photoUrl:'https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces',
-            eventsHosting:'Kayaking',
-            eventsAttending: ['Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance'],
-            //eventsAttending: 'Professional photography tour', 'Jogging','Swedish cooking class','Nature reserve hiking tour','Sailing','Node coding class','Bike tour','Abba Museum Entrance',
+            eventsHosting:[],
+            eventsAttending:[],
             passwordHash:'$2a$10$OK4iB5fmvnIomeWLt1fiouGgtt5lLLWI2lRKSxiQBx2iOoU3qM/Eu'
       },
 ]
@@ -49,28 +49,24 @@ const events= [
  
   // STOCKHOLM
     {
-        name: 'Kayaking',
-        date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
-        location: 'Stockholm',
-        description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
-        photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-        host: 'Alice Rivera',
-        attendees: ['John de Boer'],
-        host: [],
-        attendees:[],
-        type: ['sport','outdoor']
+          name: 'Kayaking',
+          date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
+          location: 'Stockholm',
+          description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
+          photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
+          host: null,
+          attendees: [],
+          type: ['sport','outdoor']
     },
     {
         name: 'Professional photography tour',
         date: '2020-09-25',
         location: 'Stockholm',
         description:'Learn to take better photographs on a 3-hour private photo workshop across Stockholm. Get tips on composition, exposure, and other techniques', 
-        photoUrl:'https://images.unsplash.com/photo-1518112394663-20d80ef50554?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-        //host: 'John de Boer',
-        //attendees: 'Alice Rivera',
-        host: [],
-        attendees:[],
-        type :['art','culture'],
+        photoUrl:'https://images.unsplash.com/photo-1513652990199-8a52e2313122?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
+        host:  null,
+        attendees: [],
+        type : ['art','culture']
     },
     {
         name: 'Jogging',
@@ -78,8 +74,8 @@ const events= [
         location: 'Stockholm',
         description:'Stay in shape or work up a sweat while exploring the beautiful city of Stockholm.',
         photoUrl:'https://images.unsplash.com/photo-1585473233369-14a97aa923df?ixlib=rb-1.2.1&auto=format&fit=crop&w=2060&q=80',
-        host: 'John de Boer',
-        attendees:'Alice Rivera',
+        host: null,
+        attendees: [],
         type: ['sport','outdoor']
     },
     {
@@ -87,19 +83,19 @@ const events= [
         date: '2020-09-18',
         location: 'Stockholm',
         description:'Enjoy and learn to cook traditional Swedish courses like marinated salmon with mustard and dill potatoes, elk meatballs or Scanian apple pie.',
-        photoUrl:'https://images.unsplash.com/photo-1564844536311-de546a28c87d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1865&q=80',
-        host: 'John de Boer',
-        attendees:'Alice Rivera',
-        type :'food'
+        photoUrl:'https://images.unsplash.com/photo-1498531872221-ce6d6216be71?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80',
+        host: null,
+        attendees: [],
+        type : ['food']
     },
     {
         name: 'Nature reserve hiking tour',
         date: '2020-09-22',
         location: 'Stockholm',
         description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',
-        photoUrl:'https://images.unsplash.com/photo-1568454537842-d933259bb258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-        host: 'John de Boer',
-        attendees: 'Alice Rivera',
+        photoUrl:'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
+        host: null,
+        attendees: [],
         type : ['sport','outdoor']
     },
     {
@@ -108,8 +104,8 @@ const events= [
         location: 'Stockholm',
         description: 'Explore the pristine beauty of thousands of islands in the Stockholm Archipelago on this full-day sailing tour.',
         photoUrl:'https://images.unsplash.com/photo-1501771924607-209f42a6e7e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80',
-        host: 'John de Boer',
-        attendees:'Alice Rivera',
+        host: null,
+        attendees: [],
         type: ['sport','outdoor']
     },
     {
@@ -117,9 +113,9 @@ const events= [
         date: '2020-09-22',
         location: 'Stockholm',
         description: 'Join us to learn Node and set up a learning Front-End website from scratch',
-        photoUrl:'https://unsplash.com/photos/aOC7TSLb1o8&auto=format&fit=crop&w=2100&q=80',
-        host: 'John de Boer',
-        attendees: 'Alice Rivera',
+        photoUrl:'https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80',
+        host: null,
+        attendees: [],
         type: ['tech','networking']
     },
     {
@@ -128,8 +124,8 @@ const events= [
         location: 'Stockholm',
         description:'Explore the Swedish capital in the most relaxed and convenient way on a guided bike tour.', 
         photoUrl:'https://images.unsplash.com/photo-1563460937-8e3fd7f161f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-        host: 'John de Boer',
-        attendees:'Alice Rivera',
+        host: null,
+        attendees: [],
         type: ['sport','outdoor']
     },
     {
@@ -138,9 +134,9 @@ const events= [
         location: 'Stockholm',
         description: 'ABBA The Museum is no ordinary museum. Here you will get to walk in the footsteps of ABBA, the world’s most successful pop group',
         photoUrl:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-        host: 'John de Boer',
-        attendees: 'Alice Rivera',
-        type :['music','culture']
+        host: null,
+        attendees: [],
+        type : ['music','culture']
     },
 ]
 
@@ -153,44 +149,44 @@ Event.create(events)
 
 //SEEDING CITIES
 
-const cities = [
-    {
-        name: 'London',
-        photoUrl: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80' 
-    },
-    {
-        name: 'Rome',
-        photoUrl: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'  
-    },
-    {
-        name: 'Amsterdam',
-        photoUrl: 'https://images.unsplash.com/photo-1571173729436-98de522c64dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
-    },
-    {
-        name: 'Lisbon',
-        photoUrl: 'https://images.unsplash.com/photo-1546375982-c22276aa12f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2130&q=80' 
-    },
-    {
-        name: 'Stockholm',
-        photoUrl: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
-    },
-    {
-        name: 'Seville',
-        photoUrl: 'https://images.unsplash.com/photo-1588328355754-b78ad593d6c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
-    },
-    {
-        name: 'Sydney',
-        photoUrl: 'https://images.unsplash.com/photo-1506374322094-6021fc3926f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2212&q=80' 
-    },
-    {
-        name: 'Paris',
-        photoUrl: 'https://images.unsplash.com/photo-1541264161754-445bbdd7de52?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80'
-    },
-    {
-        name: 'New York',
-        photoUrl: 'https://images.unsplash.com/photo-1522083165195-3424ed129620?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2360&q=80'
-    }
-]
+// const cities = [
+//     {
+//         name: 'London',
+//         photoUrl: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80' 
+//     },
+//     {
+//         name: 'Rome',
+//         photoUrl: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'  
+//     },
+//     {
+//         name: 'Amsterdam',
+//         photoUrl: 'https://images.unsplash.com/photo-1571173729436-98de522c64dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
+//     },
+//     {
+//         name: 'Lisbon',
+//         photoUrl: 'https://images.unsplash.com/photo-1546375982-c22276aa12f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2130&q=80' 
+//     },
+//     {
+//         name: 'Stockholm',
+//         photoUrl: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
+//     },
+//     {
+//         name: 'Seville',
+//         photoUrl: 'https://images.unsplash.com/photo-1588328355754-b78ad593d6c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
+//     },
+//     {
+//         name: 'Sydney',
+//         photoUrl: 'https://images.unsplash.com/photo-1506374322094-6021fc3926f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2212&q=80' 
+//     },
+//     {
+//         name: 'Paris',
+//         photoUrl: 'https://images.unsplash.com/photo-1541264161754-445bbdd7de52?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80'
+//     },
+//     {
+//         name: 'New York',
+//         photoUrl: 'https://images.unsplash.com/photo-1522083165195-3424ed129620?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2360&q=80'
+//     }
+// ]
 
 
 // SEEDING EVENTS
@@ -1036,12 +1032,12 @@ const cities = [
     
 //   ];
   
-City.create(cities)
-  .then(citiesFromDB => {
-    console.log(`Created ${citiesFromDB.length} cities`);
-    mongoose.connection.close();
-  })
-  .catch(err => console.log(`An error occurred while creating cities: ${err}`));
+// City.create(cities)
+//   .then(citiesFromDB => {
+//     console.log(`Created ${citiesFromDB.length} cities`);
+//     mongoose.connection.close();
+//   })
+//   .catch(err => console.log(`An error occurred while creating cities: ${err}`));
 
 // Event.create(events)
 //   .then(eventsFromDB => {

@@ -3,18 +3,42 @@
 <form action="/events/{{_id}}/edit" method="post">
 
   <label for="name-input">Event name:</label>
-  <input type="text" name="name" id="name-input" value="{{name}}"/>
+  <input type="text" name="name" id="name-input" value="{{event.name}}" required/>
 
   <label for="date-input">Date and time:</label>
-  <input type="date" name="date" id="date-input" value={{date}} />
+  <input type="date" name="date" id="date-input" value={{niceDate}} required/>
 
   <label for="description-input">Description:</label>
-  <textarea name="description" id="description-input" cols="30" rows="4"> {{description}} </textarea>
+  <textarea name="description" id="description-input" cols="30" rows="4" required> {{event.description}} </textarea>
 
   <label for="location-input">Location:</label>
-  <input type="text" name="location" id="location-input" value="{{location}}" />
+  <select name="location" id="location-input" required>
+    <option value="" selected="disabled hidden">Choose location</option>
+    <option value="Amsterdam">Amsterdam</option>
+    <option value="Lisbon">Lisbon</option>
+    <option value="London">London</option>
+    <option value="New York">New York</option>
+    <option value="Paris">Paris</option>
+    <option value="Rome">Rome</option>
+    <option value="Seville">Seville</option>
+    <option value="Sydney">Sydney</option>
+    <option value="Stockholm">Stockholm</option>
+  </select>
   
+  <label for="type-input">Type:</label>
+  <select name="type" id="type-input" required>
+    <option value="" selected="disabled hidden">Choose type</option>
+    <option value="Art">Art</option>
+    <option value="Culture">Culture</option>
+    <option value="Food">Food</option>
+    <option value="Music">Music</option>
+    <option value="Networking">Networking</option>
+    <option value="Outdoor">Outdoor</option>
+    <option value="Sport">Sport</option>
+    <option value="Tech">Tech</option>
+  </select>
 
-  <button type="submit">Save changes</button>  
+
+  <button type="submit" class="btn btn-secondary">Save changes</button>  
 
 </form>
