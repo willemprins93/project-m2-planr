@@ -1,0 +1,44 @@
+<header>
+	<div class="container-profile">
+		<div class="profile">
+			<div class="profile-image">
+       			 <img src={{user.photoUrl}} alt={{user.name}}>
+        <div class="profile-user-settings"></div>
+				 <h1 class="profile-user-name">{{user.firstName}} {{user.lastName}}</h1>
+            <form action="/auth/profile/{{_id}}/edit" method="POST">
+                <button class="btn profile-edit-btn"></button>>Edit Profile</button>
+            </form>	
+        </div>    
+		</div>			
+	</div>
+</header>
+<main>
+<div class="row">
+<h2>This {{user.firstName}} {{user.lastName}} has attended past events </h2>
+  {{#each events}}
+    <div class="col-sm-4">
+      <div id="img-box">
+        <a href='/events/{{_id}}/events'>
+        <img src={{this.photoUrl}}/>
+        </a>
+      </div>
+      <h3>{{this.name}}</h3>
+    </div>
+  {{/each}}
+</div>   
+<h2>This {{user.firstName}} {{user.lastName}} is going to attend the following events </h2>
+<div class="row">
+  {{#each events}}
+    <div class="col-sm-4">
+      <div id="img-box">
+        <a href='/events/{{_id}}/events'>
+        <img src={{this.photoUrl}}/>
+        </a>
+      </div>
+      <h3>{{this.name}}</h3>
+    </div>
+  {{/each}}
+</div>   
+</main>
+	
+	

@@ -3,12 +3,44 @@
 const mongoose = require('mongoose');
 const Event = require('../models/Event.model');
 const City = require('../models/City.model');
+const User = require('../models/User.model');
 
 require('dotenv').config();
 
 // require database configuration
 require('dotenv').config();
 require('../configs/db.config.js');
+
+const user= [
+ 
+    // STOCKHOLM
+      {
+            firstName: 'John',
+            lastName: 'de Boer',
+            email: 'john@deboer.com',
+            photoUrl:'https://unsplash.com/photos/bZtJgeehRVs?w=152&h=152&fit=crop&crop=faces',
+            eventsHosting:'',
+            eventsAttending:'',
+            passwordHash:'$2a$10$p/DTjgceHCjYDiG92eSSbO1YleGD0reS2O/0p.0fL5bXhZkP7CWMK'
+       },     
+      {  
+            firstName: 'Alice',
+            lastName: 'Rivera',
+            email: 'alice@rivera.com',
+            photoUrl:'https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces',
+            eventsHosting:'',
+            eventsAttending:'',
+            passwordHash:'$2a$10$OK4iB5fmvnIomeWLt1fiouGgtt5lLLWI2lRKSxiQBx2iOoU3qM/Eu'
+      },
+]
+
+User.create(users)
+  .then(usersFromDB => {
+    console.log(`Created ${usersFromDB.length} users`);
+    mongoose.connection.close();
+  })
+  .catch(err => console.log(`An error occurred while creating users: ${err}`));
+
 
 const events= [
  
@@ -19,9 +51,9 @@ const events= [
           location: 'Stockholm',
           description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
           photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-          //host: 'John',
-          //attendees: 'Alice',
-          type: 'sport'
+          host: 'Alice Rivera',
+          attendees: 'John de Boer',
+          type: 'sport','outdoor'
     },
     {
         name: 'Professional photography tour',
@@ -29,9 +61,9 @@ const events= [
         location: 'Stockholm',
         description:'Learn to take better photographs on a 3-hour private photo workshop across Stockholm. Get tips on composition, exposure, and other techniques', 
         photoUrl:'https://images.unsplash.com/photo-1518112394663-20d80ef50554?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-        //host: 'Willem',
-        //attendees: 'Alice',
-        type :'art',
+        host: 'John de Boer',
+        attendees: 'Alice',
+        type :'art','culture'
     },
     {
         name: 'Jogging',
@@ -39,9 +71,9 @@ const events= [
         location: 'Stockholm',
         description:'Stay in shape or work up a sweat while exploring the beautiful city of Stockholm.',
         photoUrl:'https://images.unsplash.com/photo-1585473233369-14a97aa923df?ixlib=rb-1.2.1&auto=format&fit=crop&w=2060&q=80',
-        //host: 'John',
-        //attendees:'Alice',
-        type: 'sport'
+        host: 'John de Boer',
+        attendees:'Alice',
+        type: 'sport','outdoor'
     },
     {
         name: 'Swedish cooking class',
@@ -49,8 +81,8 @@ const events= [
         location: 'Stockholm',
         description:'Enjoy and learn to cook traditional Swedish courses like marinated salmon with mustard and dill potatoes, elk meatballs or Scanian apple pie.',
         photoUrl:'https://images.unsplash.com/photo-1564844536311-de546a28c87d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1865&q=80',
-        //host: 'John',
-        //attendees:'Alice',
+        host: 'John de Boer',
+        attendees:'Alice Rivera',
         type :'food'
     },
     {
@@ -59,9 +91,9 @@ const events= [
         location: 'Stockholm',
         description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',
         photoUrl:'https://images.unsplash.com/photo-1568454537842-d933259bb258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-        //host: 'John',
-        //attendees:'Alice,
-        type : 'sport'
+        host: 'John de Boer',
+        attendees: 'Alice Rivera',
+        type : 'sport','outdoor'
     },
     {
         name: 'Sailing',
@@ -69,19 +101,19 @@ const events= [
         location: 'Stockholm',
         description: 'Explore the pristine beauty of thousands of islands in the Stockholm Archipelago on this full-day sailing tour.',
         photoUrl:'https://images.unsplash.com/photo-1501771924607-209f42a6e7e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80',
-        //host: 'John',
-        //attendees:'Alice',
-        type: 'sport'
+        host: 'John de Boer',
+        attendees:'Alice Rivera',
+        type: 'sport','outdoor'
     },
     {
-        name: 'Wildf Safari with Campfire Dinner',
+        name: 'Node coding class',
         date: '2020-09-22',
         location: 'Stockholm',
-        description: 'Meet moose, deer, wild boars, hares, badgers, foxes and different bird species on this wildlife safari in the beautiful nature close to Stockholm.',
-        photoUrl:'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
-        //host: 'John',
-        //attendees: 'Alice',
-        type: 'sport'
+        description: 'Join us to learn Node and set up a learning Front-End website from scratch',
+        photoUrl:'https://unsplash.com/photos/aOC7TSLb1o8&auto=format&fit=crop&w=2100&q=80',
+        host: 'John de Boer',
+        attendees: 'Alice Rivera',
+        type: 'tech','networking'
     },
     {
         name: 'Bike tour',
@@ -89,9 +121,9 @@ const events= [
         location: 'Stockholm',
         description:'Explore the Swedish capital in the most relaxed and convenient way on a guided bike tour.', 
         photoUrl:'https://images.unsplash.com/photo-1563460937-8e3fd7f161f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-        //host: 'John',
-        //attendees:'Alice',
-        type: 'sport'
+        host: 'John',
+        attendees:'Alice Rivera',
+        type: 'sport','outdoor'
     },
     {
         name: 'Abba Museum Entrance',
@@ -99,9 +131,9 @@ const events= [
         location: 'Stockholm',
         description: 'ABBA The Museum is no ordinary museum. Here you will get to walk in the footsteps of ABBA, the world’s most successful pop group',
         photoUrl:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-        //host: 'John',
-        //attendees: 'Alice',
-        type :'music'
+        host: 'John',
+        attendees: 'Alice Rivera',
+        type :'music','culture'
     },
 ]
 

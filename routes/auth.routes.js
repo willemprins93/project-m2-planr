@@ -6,8 +6,13 @@ const router = new Router();
 const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 
+// ********* require Event model in order to use it *********
 const User = require("../models/User.model");
+const Event = require("../models/Event.model");
 const mongoose = require("mongoose");
+
+// ********* require fileUploader in order to use it *********
+const fileUploader = require("../configs/cloudinary.config");
 
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////// SIGNUP //////////////////////////////////
@@ -141,15 +146,79 @@ router.post("/login", (req, res, next) => {
 ///////////////////////////// LOGOUT ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-router.post("/logout", (req, res) => {
-  req.session.destroy();
-  res.redirect("/login");
+router.post("auth/profile/edit-profile/logout", (req, res) => {
+  
+      if (!user) {
+        req.session.destroy();
+        res.redirect("/login");
+      }
 });
+
 // router.get('/userProfile', (req, res) => res.render('users/user-profile'));
 
-router.get("/userProfile", (req, res) => {
-  // console.log('your sess exp: ', req.session.cookie.expires);
-  res.render("users/user-profile", { userInSession: req.session.currentUser });
-});
+// router.get("/userProfile", (req, res) => {
+//   // console.log('your sess exp: ', req.session.cookie.expires);
+//   res.render("users/user-profile", { userInSession: req.session.currentUser });
+// });
+
+
+////////////////////////////////////////////////////////////////////////////
+///////////////////////////// USER PROFILE /////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+  router.get('/profile/:id', (req, res) => {
+    if (req.session.currentUser = user){
+
+      User
+        .findById(id)
+        .then(userFromDB => {
+            console.log('User found : ', userFromDB)
+            Event.find({location: cityFromDB.name})
+                .then(eventsFromDB => {
+                    console.log(`Events found for ${userFromDB.name}: ${userFromDB}`)
+                    res.render(users/user-profile',{userInSession: req.session.currentUser, events: eventsFromDB})
+                })
+            }
+            
+    }else {
+      res.redirect('/login')
+    }
+    });
+  
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////// EDIT AND UPDATE USER PROFILE ///////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+  router.get('/profile/:id/edit', (req, res) => {
+    if (req.session.currentUser = user){
+    res.render('users/user-edit', {userInSession: req.session.currentUser})
+  }
+  });
+  // with cloudinary to upload images
+  router.put('/profile/id:/edit',fileUploader.single('image'), (req, res) => {
+    if (req.session.currentUser = user){
+
+    const { firstName, lastName, email, pasword,photoUrl, eventsAttending } = req.body;
+    const userId = req.session.currentUser._id
+
+        let photoUrl;
+      if (req.file) {
+        photoUrl = req.file.path;
+      } else {
+        photoUrl = req.body.existingImage;
+      }
+     
+    User
+      .populate('host attendees')
+      .findByIdAndUpdate(userId, {firstName, lastName, email, pasword,photoUrl, eventsAttending })
+      .then((updatedProfile) => res.redirect(`/profile/user-edit ${updatedProfile._id}`))
+      .catch((error) => {
+        console.log(`Error while updating profile: ${error}`)
+      });
+  }
+  else {
+    res.redirect('/login')
+  }
+  });
 
 module.exports = router;

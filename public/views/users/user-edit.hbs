@@ -1,0 +1,48 @@
+
+<div class="container-profile-edit"> 
+	<div class="container-profile">
+		<div class="profile">
+			<div class="profile-image">
+       			 <img src={{user.photoUrl}} alt={{user.name}}>
+				  <h1 class="profile-user-name">{{user.firstName}} {{user.lastName}}</h1>
+        <div class="profile-user-settings"></div>
+            <form action="/auth/profile/{{_id}}/edit" method="post">
+                <button class="btn profile-edit-btn"></button>>Edit Profile</button>
+            </form>	               
+                            <form action="/auth/profile{{_id}}/edit" method="POST">
+
+                                <label for="first name">First Name:</label>
+                                <input type="text" name="first name" id="first-name-input" value="{{users.firstName}}"class="form-control mt-2" placeholder="First Name" />
+
+                                <label for="first name">Last Name:</label>
+                                <input type="text" name="last name" id="last-name-input" value="{{users.lastName}}"class="form-control mt-2" placeholder="Second Name" />
+
+                                <label for="last name">Email:</label>
+                                <input type="text" name="email" id="email-input" value={{users.email}} class="form-control mt-2" placeholder="Email address"/>
+
+                                <label for="password">Password:</label>
+                                <input type="text" name="password" id="password-input" value="{{password}}" />  
+                            <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Save changes</button>
+      
+                            </form>
+                      </p> 
+
+                      <div class="btn-group">
+                        <form action="/events/{{_id}}/edit" method="POST"></form>
+                            <button class="btn btn-lg bt-outline-primary  mt-3" type="submit">Log out </button>
+                            <button class="btn btn-lg btn-outline-primary  mt-3" type="submit">Delete</button>
+                        </form>
+                      </div>
+               </div> 
+        </div> 
+    </div> 
+  </div> 
+</div>     
+
+
+
+
+
+
+
+
