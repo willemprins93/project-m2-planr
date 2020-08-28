@@ -1,12 +1,11 @@
 <h2>Edit your event</h2>
-
-<form action="/events/{{_id}}/edit" method="post">
-
+<h1>{{_id}}</h1>
+<form action="/events/{{event._id}}/edit" method="POST">
   <label for="name-input">Event name:</label>
   <input type="text" name="name" id="name-input" value="{{event.name}}" required/>
 
   <label for="date-input">Date and time:</label>
-  <input type="date" name="date" id="date-input" value={{niceDate}} required/>
+  <input type="datetime-local" name="date" id="date-input" value={{fillDate}} required/>
 
   <label for="description-input">Description:</label>
   <textarea name="description" id="description-input" cols="30" rows="4" required> {{event.description}} </textarea>

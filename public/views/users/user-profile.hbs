@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container">
    <div class="row">
         <div class="col-md-6 img"> 
@@ -69,6 +70,23 @@
 			</div>
 		</div>
     <!--
+=======
+<header>
+	<div class="container-profile">
+		<div class="profile">
+			<div class="profile-image">
+       			 <img src={{user.photoUrl}} alt={{user.name}}>
+        <div class="profile-user-settings"></div>
+				 <h1 class="profile-user-name">{{user.name.firstName}} {{user.name.lastName}}</h1>
+            <form action="/auth/profile/edit" method="get">
+                <button class="btn profile-edit-btn" type="submit">Edit Profile</button>
+            </form>	
+            <form action="/auth/profile/logout" method="post" onsubmit="return confirm('Are you sure you want to log out?');">
+                <button class="btn profile-edit-btn" type="submit" >Logout</button>
+            </form>	
+        </div>    
+		</div>			
+>>>>>>> 2cb0215c50ebad9d890ce467ead25e508e58661e
 	</div>
 </div>
 </section>-->

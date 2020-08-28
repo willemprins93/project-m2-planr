@@ -1,27 +1,21 @@
-// routes/auth.routes.js
-
 const { Router } = require("express");
 const router = new Router();
 
 const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 
-// ********* require Event model in order to use it *********
+// require Models
 const User = require("../models/User.model");
 const Event = require("../models/Event.model");
 const mongoose = require("mongoose");
 
-// ********* require fileUploader in order to use it *********
+// require fileUploader
 const fileUploader = require("../configs/cloudinary.config");
 
-////////////////////////////////////////////////////////////////////////
-///////////////////////////// SIGNUP //////////////////////////////////
-////////////////////////////////////////////////////////////////////////
+// SIGNUP //////////////////////////////////
 
-// .get() route ==> to display the signup form to users
 router.get("/signup", (req, res) => res.render("auth/signup"));
 
-// .post() route ==> to process form data
 router.post("/signup", async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
 
@@ -34,50 +28,27 @@ router.post("/signup", async (req, res, next) => {
   }
 
   // make sure passwords are strong:
-
-  // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  // if (!regex.test(password)) {
-  //   res
-  //     .status(500)
-  //     .render('auth/signup', { errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
-  //   return;
-  // }
-
-  // await User.find().then((banana) => {
-  //   console.log("BANANA: ", req.body);
-  //   res.render("auth/signup");
-  // });
-
-  // const salt = await bcryptjs.genSalt();
-  // const passwordHash = await bcryptjs.hash(req.body.password, salt);
-  // console.log("ALL GOOD IN THE HOOD");
-  // try {
-  //   const user = await User.create({
-  //     email,
-  //     firstName,
-  //     lastName,
-  //     passwordHash,
-  //   });
-  //   console.log("USEEEEEE", user);
-  // } catch (error) {
-  //   console.error(error);
-  // }
-  // return;
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  if (!regex.test(password)) {
+    res
+      .status(500)
+      .render("auth/signup", {
+        errorMessage:
+          "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+      });
+    return;
+  }
 
   bcryptjs
     .genSalt(saltRounds)
     .then((salt) => bcryptjs.hash(password, salt))
     .then((hashedPassword) => {
       return User.create({
-        // username: username
         name: {
           firstName,
           lastName,
         },
         email,
-        // passwordHash => this is the key from the User model
-        //     ^
-        //     |            |--> this is placeholder (how we named returning value from the previous method (.hash()))
         passwordHash: hashedPassword,
       });
     })
@@ -101,16 +72,11 @@ router.post("/signup", async (req, res, next) => {
     }); // close .catch()
 });
 
-////////////////////////////////////////////////////////////////////////
-///////////////////////////// LOGIN ////////////////////////////////////
-////////////////////////////////////////////////////////////////////////
+// LOGIN ////////////////////////////////////
 
-// .get() route ==> to display the login form to users
 router.get("/login", (req, res) => res.render("auth/login"));
 
-// .post() login route ==> to process form data
 router.post("/login", (req, res, next) => {
-  // console.log('SESSION =====> ', req.session);
   const { email, password } = req.body;
 
   if (email === "" || password === "") {
@@ -128,12 +94,8 @@ router.post("/login", (req, res, next) => {
         });
         return;
       } else if (bcryptjs.compareSync(password, user.passwordHash)) {
-        // the following line gets replaced with what follows:
-        // res.render('users/user-profile', { user });
-
         //******* SAVE THE USER IN THE SESSION ********//
         req.session.currentUser = user;
-        console.log(req.session);
         res.redirect("/cities");
       } else {
         res.render("auth/login", { errorMessage: "Incorrect password." });
@@ -142,27 +104,16 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-////////////////////////////////////////////////////////////////////////
-///////////////////////////// LOGOUT ////////////////////////////////////
-////////////////////////////////////////////////////////////////////////
+// LOGOUT ////////////////////////////////////
 
-router.post("auth/profile/edit-profile/logout", (req, res) => {
-  if (!user) {
+router.post("/profile/logout", (req, res) => {
+  if (req.session.currentUser) {
     req.session.destroy();
-    res.redirect("/login");
+    res.redirect("/auth/login");
   }
 });
 
-// router.get('/userProfile', (req, res) => res.render('users/user-profile'));
-
-// router.get("/userProfile", (req, res) => {
-//   // console.log('your sess exp: ', req.session.cookie.expires);
-//   res.render("users/user-profile", { userInSession: req.session.currentUser });
-// });
-
-////////////////////////////////////////////////////////////////////////////
-///////////////////////////// USER PROFILE /////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
+// USER PROFILE /////////////////////////////////
 
 router.get("/profile", (req, res) => {
   if (req.session.currentUser) {
@@ -175,57 +126,65 @@ router.get("/profile", (req, res) => {
         console.log("User found : ", userFromDB);
         res.render("users/user-profile", { user: userFromDB });
       })
-      .catch(error => console.log('Error retrieving user profile: ', error))
+      .catch((error) => console.log("Error retrieving user profile: ", error));
   } else {
     res.redirect("/auth/login");
   }
 });
 
-/////////////////////////////////////////////////////////////////////////////
-///////////////////////////// EDIT AND UPDATE USER PROFILE ///////////////////
-/////////////////////////////////////////////////////////////////////////////
+// EDIT USER PROFILE ///////////////////
 
 router.get("/profile/edit", (req, res) => {
   if (req.session.currentUser) {
     res.render("users/user-edit", { user: req.session.currentUser });
   }
 });
+
 // with cloudinary to upload images
 router.post("/profile/edit", (req, res) => {
   // fileUploader.single("image")
-    const {
-      firstName,
-      lastName,
-      email
-    } = req.body;
-    console.log('form data: ', firstName, lastName, email)
-    const userId = req.session.currentUser._id;
+  const { firstName, lastName, email } = req.body;
+  console.log("form data: ", firstName, lastName, email);
+  const userId = req.session.currentUser._id;
 
-    //   let photoUrl;
-    // if (req.file) {
-    //   photoUrl = req.file.path;
-    // } else {
-    //   photoUrl = req.body.existingImage;
-    // }
+  //   let photoUrl;
+  // if (req.file) {
+  //   photoUrl = req.file.path;
+  // } else {
+  //   photoUrl = req.body.existingImage;
+  // }
 
-    User
-      .findByIdAndUpdate(userId, {
-        name: {
-          firstName,
-          lastName
-        },
-        email
-      }, 
-      {
-        new: true
-      })
-      .then((updatedProfile) => {
-        console.log('Updated succesfully! Yey!', updatedProfile)
-        res.redirect(`/auth/profile`)
-      })
-      .catch((error) => {
-        console.log(`Error while updating profile: ${error}`);
-      });
+  User.findByIdAndUpdate(
+    userId,
+    {
+      name: {
+        firstName,
+        lastName,
+      },
+      email,
+    },
+    {
+      new: true,
+    }
+  )
+    .then((updatedProfile) => {
+      console.log("Updated succesfully! Yey!", updatedProfile);
+      res.redirect(`/auth/profile`);
+    })
+    .catch((error) => {
+      console.log(`Error while updating profile: ${error}`);
+    });
 });
+
+// DELETE USER //////////////////////////////////
+router.post("/profile/delete", (req, res) => {
+  const id = req.session.currentUser._id;
+
+  User.findByIdAndDelete(id)
+    .then(() => res.redirect("/auth/signup"))
+    .catch((error) => console.log(`Error while deleting a event: ${error}`));
+});
+
+
 
 module.exports = router;

@@ -1,18 +1,17 @@
-//cities.routes.js
 const express = require('express');
 const router = express.Router();
 
+// require models
 const City = require('../models/City.model');
 const Event = require('../models/Event.model')
 
-
+// RENDER CITIES LIST ///////////////
 router.get('/', (req, res) => {
     if (!req.session.currentUser) {
         res.redirect('/auth/login')
     }
     City.find()
         .then(citiesFromDB => {
-            // console.log(citiesFromDB);
             res.render('cities/cities-list',{ cities: citiesFromDB });
         })
         .catch(err =>
@@ -20,6 +19,7 @@ router.get('/', (req, res) => {
         );
 });
 
+// RENDER EVENTS FOR SPECIFIED CITY //////
 router.get('/:id/events', (req, res) => {
     if (!req.session.currentUser) {
         res.redirect('/auth/login')
