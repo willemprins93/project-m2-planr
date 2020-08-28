@@ -1,23 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-// ********* require Event model in order to use it *********
+// require Models
 const Event = require("../models/Event.model");
 const User = require('../models/User.model')
 
-// ********* require fileUploader in order to use it *********
+// require fileUploader
 const fileUploader = require("../configs/cloudinary.config");
 
-// ********* require date-fns *********************************
+// require date-fns
 const { format, compareAsc } = require('date-fns')
 
-// ****************************************************************************************
-// 1. GET route to display all the events
-// ****************************************************************************************
-////////////////////////////////////////////////////////////////////////
-/////////////////////// DISPLAY A LIST OF EVENTS ///////////////////////
-////////////////////////////////////////////////////////////////////////
 
+// DISPLAY A LIST OF EVENTS ///////////////////////
 
 router.get("/", (req, res) => {
   if (!req.session.currentUser) {
@@ -33,9 +28,7 @@ router.get("/", (req, res) => {
     );
 });
 
-////////////////////////////////////////////////////////////////////////
-////////////////////// CREATE A NEW EVENT //////////////////////////////
-////////////////////////////////////////////////////////////////////////
+// CREATE A NEW EVENT //////////////////////////////
 
 router.get("/create", (req, res) => {
   if (!req.session.currentUser) {
@@ -45,7 +38,6 @@ router.get("/create", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-  // console.log(req.body);
   const { name, date, location, description, type } = req.body;
 
   const id = req.session.currentUser._id;
@@ -58,19 +50,20 @@ router.post("/create", (req, res) => {
     .catch(error => console.log(`Error while creating a new event: ${error}`));
 });
 
-////////////////////////////////////////////////////////////////////////
-////////////////////// EDIT AN UPDATE AN EVENT /////////////////////////
-////////////////////////////////////////////////////////////////////////
+
+// EDIT AND UPDATE AN EVENT /////////////////////////
 
 router.get("/:id/edit", (req, res) => {
   if (!req.session.currentUser) {
     res.redirect('/auth/login')
   }
   const { id } = req.params;
-
+  console.log('ID: ', id)
   Event.findById(id)
     .then((eventToEdit) => {
-        res.render("events/events-edit", {event: eventToEdit, niceDate });
+        const fillDate = format(eventToEdit.date, 'yyyy-MM-dd\'T\'HH:mm')
+
+        res.render("events/events-edit", {event: eventToEdit, fillDate });
     })
     .catch((error) =>
       console.log(`Error while getting a single event for edit: ${error}`)
@@ -79,6 +72,7 @@ router.get("/:id/edit", (req, res) => {
 
 router.post("/:id/edit", (req, res) => {
   const { id } = req.params;
+  console.log(id)
   const {
     name,
     date,
@@ -87,28 +81,21 @@ router.post("/:id/edit", (req, res) => {
     type
   } = req.body;
 
-  // attempt at reformatting date
-  // console.log('Original date: ', date)
-
-  // const formattedDate = format(date, 'YYYY/MM/DD')
-
-  // console.log('Formatted date: ', formattedDate)
-
   Event.findByIdAndUpdate(
     id,
     { name, date, location, description, type },
     { new: true }
   )
-    .then((updatedEvent) => res.redirect(`/events/${updatedEvent._id}`))
+    .then((updatedEvent) => {
+      console.log('Event updated: ', updatedEvent)
+      res.redirect(`/events/${updatedEvent._id}`)
+    })
     .catch((error) => {
       console.log(`Error while updating a single event: ${error}`)
     });
 });
 
-////////////////////////////////////////////////////////////////////////
-////////////////////// DELETE AN EVENT /////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-
+// DELETE AN EVENT /////////////////////////////////
 
 router.post("/:id/delete", (req, res) => {
   const { id } = req.params;
@@ -118,28 +105,21 @@ router.post("/:id/delete", (req, res) => {
     .catch((error) => console.log(`Error while deleting a event: ${error}`));
 });
 
-///////////////////////////////////////////////////////////////////////////
-/////////////////////// EVENT DETAILS /////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
+// SINGLE EVENT DETAILS /////////////////////////////////////
 
-
-router.get("/:someEventId", (req, res) => {
+router.get("/:id", (req, res) => {
   if (!req.session.currentUser) {
     res.redirect('/auth/login')
   }
-  const { someEventId } = req.params;
+  const { id } = req.params;
   const isHosting = true;
 
-  Event.findById(someEventId)
+  Event.findById(id)
     .populate('host attendees')
     .then((foundEvent) => {
-      console.log('Did I find a event?', foundEvent);
       const justDate = format(foundEvent.date, 'dd/MM/yyyy')
       const justTime = format(foundEvent.date, 'HH:mm')
-      console.log('Just date: ', justDate)
-      console.log('Just time: ', justTime)
-      // console.log(req.session.currentUser._id)
-      // console.log(foundEvent.host._id)
+
       if (foundEvent.host && foundEvent.host._id.toString() === req.session.currentUser._id.toString()) {
         res.render("events/events-detail", { event: foundEvent, isHosting, justDate, justTime });
         console.log('HOSTING TRUE')
@@ -153,26 +133,29 @@ router.get("/:someEventId", (req, res) => {
     );
 });
 
-/////////////////////////////////////////////////////////////////////////
-/////////////// ATTEND/BOOK EVENT //////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
 
-router.post('/:someEventId', (req, res) => {
-  const { someEventId } = req.params;
+// ATTEND/BOOK EVENT //////////////////////////////////////
+
+router.post('/:id', (req, res) => {
+  const { id } = req.params;
 
   const userId = req.session.currentUser._id;
 
-  Event.findByIdAndUpdate(someEventId, {attendees: [userId]})
+  Event.findByIdAndUpdate(id, {attendees: [userId]})
   .then(updatedEvent => {
     User.findByIdAndUpdate(userId, {eventsAttending: [updatedEvent]}, {new: true})
       .then(updatedUser => {
-        res.redirect(`/events/${someEventId}`)
+        res.redirect(`/events/${id}`)
         console.log('Updated event: ', updatedEvent)
         console.log('Updated user: ', updatedUser)
       })
-  });
+  })
+  .catch(error => {
+    console.log('Error while updating event: ', error)
+  })
 
 })
+
 
 
 module.exports = router;
