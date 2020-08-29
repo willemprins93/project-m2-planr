@@ -136,23 +136,26 @@ router.get("/profile", (req, res) => {
 
 router.get("/profile/edit", (req, res) => {
   if (req.session.currentUser) {
-    res.render("users/user-edit", { user: req.session.currentUser });
+    User.findById(req.session.currentUser._id)
+      .then(userFromDB => {
+        res.render("users/user-edit", { user: userFromDB })
+      })
   }
 });
 
 // with cloudinary to upload images
-router.post("/profile/edit", (req, res) => {
+router.post("/profile/edit", fileUploader.single("image"), (req, res) => {
   // fileUploader.single("image")
   const { firstName, lastName, email } = req.body;
   console.log("form data: ", firstName, lastName, email);
   const userId = req.session.currentUser._id;
 
-  //   let photoUrl;
-  // if (req.file) {
-  //   photoUrl = req.file.path;
-  // } else {
-  //   photoUrl = req.body.existingImage;
-  // }
+  let photoUrl;
+  if (req.file) {
+    photoUrl = req.file.path;
+  } else {
+    photoUrl = req.body.existingImage;
+  }
 
   User.findByIdAndUpdate(
     userId,
@@ -162,6 +165,7 @@ router.post("/profile/edit", (req, res) => {
         lastName,
       },
       email,
+      photoUrl
     },
     {
       new: true,

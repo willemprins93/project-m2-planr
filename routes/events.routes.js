@@ -37,12 +37,20 @@ router.get("/create", (req, res) => {
   res.render("events/events-create")
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", fileUploader.single("image"), (req, res) => {
   const { name, date, location, description, type } = req.body;
 
   const id = req.session.currentUser._id;
 
-  Event.create({ name, date, location, description, type, host: id })
+  let photoUrl;
+  if (req.file) {
+    photoUrl = req.file.path;
+  } else {
+    photoUrl = req.body.existingImage;
+  }
+
+
+  Event.create({ name, date, location, description, type, photoUrl, host: id })
     .then((eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
       res.redirect("/events");
@@ -141,9 +149,9 @@ router.post('/:id', (req, res) => {
 
   const userId = req.session.currentUser._id;
 
-  Event.findByIdAndUpdate(id, {attendees: [userId]})
+  Event.findByIdAndUpdate(id, {attendees: [userId]}, {new: true})
   .then(updatedEvent => {
-    User.findByIdAndUpdate(userId, {eventsAttending: [updatedEvent]}, {new: true})
+    User.findByIdAndUpdate(userId, {eventsAttending: [updatedEvent._id]}, {new: true})
       .then(updatedUser => {
         res.redirect(`/events/${id}`)
         console.log('Updated event: ', updatedEvent)

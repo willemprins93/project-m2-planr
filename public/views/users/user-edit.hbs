@@ -8,14 +8,14 @@
       <form action="/auth/profile/edit" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="image-input">Image:</label>
-          <input type="file" name="image" id="image-input" class="form-control-file" />
-          <input type="text" name="existingImage" hidden id="" value="{{user.photoUrl}}">
+          <input type="file" name="image" id="image-input" class="form-control-file">
+          <input type="text" name="existingImage" hidden id="existingImage" value="{{user.photoUrl}}">
         </div>
-        <button type="submit" class="btn btn-success">Upload photo</button>
-      </form>
+        {{!-- <button type="submit" class="btn btn-success">Upload photo</button>
+      </form> --}}
     </div>
     <div class="col-md-6">  
-      <form action= method="POST"></form>
+      {{!-- <form action= method="POST"> --}}
         <div class="form-group">
             <label for="first name">First Name:</label>
             <input type="text" class="form-control" id="firstName" name="firstName" value="{{user.name.firstName}}">
@@ -32,7 +32,7 @@
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" value="{{user.password}}">
           </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block mt-3"> Saved changes</button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block mt-3">Saved changes</button>
       </form>
         <ul class="nav nav-pills nav-stacked">
               <li class="active"><a href="#">Delete</a></li>
