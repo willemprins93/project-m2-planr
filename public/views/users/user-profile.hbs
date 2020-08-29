@@ -6,7 +6,7 @@
         </div>
         <div class="col-md-6 details">
           <blockquote>
-            <h5>{{user.firstName}} {{user.lastName}} Alice Appears Please! <h5 class="profile-user-name">
+            <h5>{{user.name.firstName}} {{user.name.lastName}} <h5 class="profile-user-name">
           </blockquote>
           <form action="/auth/profile/edit" method="get">
             <button class="btn profile-edit-btn">Edit Profile</button>
@@ -18,7 +18,7 @@
         <h3 class="h3-responsive"> has attended the following events <h3>
   </div>
 </div>
-   <div class="row">
+   <div class="row" style="border: 1px solid black">
           {{#each user.eventsAttending}}
             <div class="col-sm-4">
               <div id="img-box">
@@ -30,21 +30,7 @@
             </div>
           {{/each}}
   </div>
-      <!--<h3>{{user.name.firstName}} {{user.name.lastName}} is going to attend the following events:</h3>-->
-      <h3 class="h3-responsive"> is going to attend the following events: </h3>
-    <div class="row">
-          {{#each events}}
-            <div class="col-sm-4">
-            <div class="alignleft"> 
-              <div id="img-box">
-                <a href='/events/{{_id}}/events'>
-                <img src={{this.photoUrl}}/>
-                </a>
-              </div>
-              <h3>{{this.name}}</h3>
-            </div>
-          {{/each}}
-      </div>         
+
 
 
 

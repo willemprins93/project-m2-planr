@@ -120,10 +120,9 @@ router.get("/profile", (req, res) => {
     const id = req.session.currentUser._id;
 
     User.findById(id)
-      .populate("eventsHosting")
-      .populate("eventsAttending")
+      .populate("eventsHosting eventsAttending")
       .then((userFromDB) => {
-        console.log("User found : ", userFromDB);
+        console.log("User found for profile: ", userFromDB);
         res.render("users/user-profile", { user: userFromDB });
       })
       .catch((error) => console.log("Error retrieving user profile: ", error));

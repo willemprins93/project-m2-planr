@@ -66,7 +66,7 @@ router.get("/:id/edit", (req, res) => {
     res.redirect('/auth/login')
   }
   const { id } = req.params;
-  console.log('ID: ', id)
+
   Event.findById(id)
     .then((eventToEdit) => {
         const fillDate = format(eventToEdit.date, 'yyyy-MM-dd\'T\'HH:mm')
@@ -78,9 +78,9 @@ router.get("/:id/edit", (req, res) => {
     );
 });
 
-router.post("/:id/edit", (req, res) => {
+router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
   const { id } = req.params;
-  console.log(id)
+
   const {
     name,
     date,
@@ -89,9 +89,16 @@ router.post("/:id/edit", (req, res) => {
     type
   } = req.body;
 
+  let photoUrl;
+  if (req.file) {
+    photoUrl = req.file.path;
+  } else {
+    photoUrl = req.body.existingImage;
+  }
+
   Event.findByIdAndUpdate(
     id,
-    { name, date, location, description, type },
+    { name, date, location, description, type, photoUrl },
     { new: true }
   )
     .then((updatedEvent) => {
