@@ -27,9 +27,9 @@
 <p>Description: {{event.description}}</p>
 <p>Event Type: {{event.type}}</p>
 <p>Location: {{event.location}}</p>
-<p>Host: {{event.host.name.firstName}} {{event.host.name.lastName}}</p>
+<p>Host: <img src={{event.host.photoUrl}} class="rounded-circle"> {{event.host.name.firstName}} </p>
 <p>Attendees: {{#each event.attendees}}
-    {{name.firstName}} {{name.lastName}}
+    <img src={{photoUrl}}> 
     {{/each}}</p>
 <hr>
 <a href="/events">Back</a>
