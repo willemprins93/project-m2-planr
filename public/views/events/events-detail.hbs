@@ -1,5 +1,27 @@
 {{!-- events-details.hbs --}}
 
+<div class="container text-center">    
+<h3>{{event.name}}</h3><br>
+  <div class="row">
+    <div class="col-lg-6">
+        <img src={{event.photoUrl}} class="img-responsive" style="width:100%" alt="Image">
+    </div>
+        <div class="col-lg-6"> 
+           <div class="container text-justify">   
+            <p class ="text-justify">Description: {{event.description}} </p>
+            <p class ="text-justify"></p>Event Type: {{event.type}}</p>
+            <p class ="text-justify"></p>Location: {{event.location}}</p>
+            <p class ="text-justify"></p>Date and Time: {{justDate}} at {{justTime}}</p>
+            <p class ="text-justify"></p>Host: <img src={{event.host.photoUrl}}  {{event.host.name.firstName}}> </p>
+            <p class ="text-justify"></p>Attendees: {{#each event.attendees}}
+            <img src={{photoUrl}}> 
+            {{/each}}</p>
+            <a href="/events">Back</a>
+        <div>   
+    <div>
+<div>
+
+<!--
 <h1>{{name}}</h1>
 <hr>
 
@@ -33,3 +55,4 @@
     {{/each}}</p>
 <hr>
 <a href="/events">Back</a>
+-->
