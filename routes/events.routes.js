@@ -161,13 +161,18 @@ router.post("/:id", (req, res) => {
 
   const userId = req.session.currentUser._id;
 
-  Event.findByIdAndUpdate(id, { attendees: [userId] }, { new: true })
+  Event.findByIdAndUpdate(
+    id, 
+    { $addToSet: { attendees: [userId] } }, 
+    { new: true }
+    )
     .then((updatedEvent) => {
       User.findByIdAndUpdate(
         userId,
         { $addToSet: { eventsAttending: updatedEvent._id } },
         { new: true }
-      ).then((updatedUser) => {
+      )
+      .then((updatedUser) => {
         req.session.currentUser = updatedUser;
         res.redirect(`/events/${id}`);
         console.log("Updated event: ", updatedEvent);
