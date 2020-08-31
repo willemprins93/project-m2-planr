@@ -27,11 +27,16 @@ form  {
 }
 .navbar {
     min-height: 60px;
-    border: 2px solid green;
+    
 }
 
 /* user profile */
 
+.col-md-6 img {
+    border-radius: 50%;
+}
+
+/*
 .container-profile {
     max-width: 100%;
     margin: 0 auto;
@@ -59,10 +64,8 @@ form  {
     border-radius: 50%;
     border: 2px solid blue;
 }
-
 .profile-image img {
     border-radius: 50%;
-    
 }
 
 .profile-user-settings {
@@ -72,7 +75,6 @@ form  {
 	border: 2px solid fuchsia;
 }
   
-
 .profile-user-name {
     display: inline-block;
     font-size: 3.2rem;

@@ -1,10 +1,26 @@
 {{!-- events-details.hbs --}}
 
-<div class="container text-center">    
+<div class="container text-center"> 
+<!--Buttons-->
+    <form action='/events/{{event._id}}' method='post'>
+        <button type="submit" class="btn btn-primary">Book</button> 
+    </form>
+
+    {{#if isHosting}}
+    <form action='/events/{{event._id}}/edit' method='get'>
+        <button type="submit" class="btn btn-secondary">Edit</button> 
+    </form>
+
+    <form action='/events/{{event._id}}/delete' onsubmit="return confirm('Are you sure you want to delete this event?');" method='post'>
+        <button type="submit" class="btn btn-danger">Delete</button> 
+    </form>
+    {{/if}}   
+    
+<!--Event details-->
 <h3>{{event.name}}</h3><br>
   <div class="row">
     <div class="col-lg-6">
-        <img src={{event.photoUrl}} class="img-responsive" style="width:100%" alt="Image">
+         <img src={{event.photoUrl}} class="img-responsive center-block" style="width:100%" height="auto" alt="Image">
     </div>
         <div class="col-lg-6"> 
            <div class="container text-justify">   
@@ -12,7 +28,7 @@
             <p class ="text-justify"><b>Event Type: </b>  {{event.type}}</p>
             <p class ="text-justify"><b>Location: </b>  {{event.location}}</p>
             <p class ="text-justify"><b>Date and Time: </b>  {{justDate}} at {{justTime}}</p>
-            <p class ="text-justify"><b>Host:</b>  <img src={{event.host.photoUrl}}  {{event.host.name.firstName}}> </p>
+            <p class ="text-justify"><b>Host:</b>  <img src={{event.host.photoUrl}} {{event.host.name.firstName}}> </p> 
             <p class ="text-justify"><b>Attendees: </b>  {{#each event.attendees}}
             <img src={{photoUrl}}> 
             {{/each}}</p>
@@ -21,38 +37,3 @@
     <div>
 <div>
 
-<!--
-<h1>{{name}}</h1>
-<hr>
-
-<form action='/events/{{event._id}}' method='post'>
-    <button type="submit" class="btn btn-primary">Book</button> 
-</form>
-
-{{#if isHosting}}
-<form action='/events/{{event._id}}/edit' method='get'>
-    <button type="submit" class="btn btn-secondary">Edit</button> 
-</form>
-
-<form action='/events/{{event._id}}/delete' onsubmit="return confirm('Are you sure you want to delete this event?');" method='post'>
-    <button type="submit" class="btn btn-danger">Delete</button> 
-</form>
-{{/if}}
-
-{{!-- <button type="submit">Cancel</button> --}}
-<div id=img-box>
-    <img src={{event.photoUrl}}>
-</div>
-
-<p>Event Name: {{event.name}}</p>
-<p>Date and Time: {{justDate}} at {{justTime}}</p>
-<p>Description: {{event.description}}</p>
-<p>Event Type: {{event.type}}</p>
-<p>Location: {{event.location}}</p>
-<p>Host: <img src={{event.host.photoUrl}} class="rounded-circle"> {{event.host.name.firstName}} </p>
-<p>Attendees: {{#each event.attendees}}
-    <img src={{photoUrl}}> 
-    {{/each}}</p>
-<hr>
-<a href="/events">Back</a>
--->
