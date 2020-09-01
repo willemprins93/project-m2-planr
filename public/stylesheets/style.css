@@ -1,21 +1,28 @@
 body {
-  padding: 0;
-	margin: 0 auto;
-  font-family: 'Montserrat', sans-serif;
+    padding: 0;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80');
+    background-size: cover;
 }
 
 h1 {
 	text-align: center;
 	padding: 10px;
-	font-size: 110px;
+    font-size: 110px;
+    margin-top: 20px;
+}
+
+h2 {
+	text-align: center;
+	padding: 20px;
 }
 
 form  {
 	width: 100%;
 	margin: 0 auto;
 	display: block;
-	padding: 20px;
-	
+    padding: 20px;
 }
 
 .btn {
@@ -25,9 +32,32 @@ form  {
 	font-weight: 700;
 	letter-spacing: 1px;
 }
+
+
+.btn-outline-primary {
+    color: rgb(23, 155, 89);
+    border-color: rgb(23, 155, 89);
+}
+.btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
+    background-color: rgb(23, 155, 89);
+    color: #ffff;
+    border-color: rgb(23, 155, 89);
+}
+
+
+.box {
+    text-align: center;
+}
+
 .navbar {
     min-height: 60px;
-    
+    background-image: linear-gradient(rgb(82, 179, 122), rgb(23, 155, 89));
+}
+
+.main-container {
+    background-color: #fff;
+    height: 100vh;
+    box-shadow: 0px 0px 32px -1px rgba(0,0,0,0.59);
 }
 
 /* user profile */
@@ -204,7 +234,7 @@ p {
 }
 
 a {
-  color: #00b7ff;
+    color: rgb(23, 155, 89);
 }
 
 #img-box {
@@ -232,4 +262,6 @@ a {
 
 #error-message {
   background-color: crimson;
+  border: 1px solid darkred;
+  color: #fff;
 }

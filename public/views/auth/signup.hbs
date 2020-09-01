@@ -1,4 +1,6 @@
-<h1>SIGNUP</h1>
+<div class="container" style="width: 500px; text-align: center;">
+	<h3>Sign Up</h3>
+</div>
 <div class="container"style="width:500px">
 	<form action="/auth/signup" method="POST">
 		<div class="form-group">
@@ -13,14 +15,16 @@
 		<div class="form-group">  
 			<input type="password" name="password" class="form-control" placeholder="Password">
 		</div>
-		<button type="submit" class="btn btn-primary">Sign Up</button>
+		<button type="submit" class="btn btn-outline-primary">Sign Up</button>
 	</form>
 </div>
 
-<div class="box" style="width:500px">
+<div class="container" style="width:500px">
 	<p>Already have an account? <a href="/auth/login">Log in</a></p>
 </div>
-    
-<div class="box" id="error-message"style="width:500px">
+
+{{#if errorMessage}}
+<div class="container" id="error-message"style="width:500px">
     <p>{{errorMessage}}</p>
 </div>
+{{/if}}

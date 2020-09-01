@@ -1,15 +1,23 @@
-<h2>Cities</h2>
-<hr>
+<div class="main-container">
+  <div class="container" style="text-align: center;">
+    <h2>Cities</h2>
+  <hr>
+  </div>
 
-<div class="row">
-  {{#each cities}}
-    <div class="col-sm-4">
-      <div id="img-box">
-        <a href='/cities/{{_id}}/events'>
-        <img src={{this.photoUrl}}/>
-        </a>
+  <div class="container">
+  <div class="row">
+    {{#each cities}}
+      <div class="col-sm-4">
+        <div id="img-box">
+          <a href='/cities/{{_id}}/events'>
+          <img src={{this.photoUrl}}/>
+          </a>
+        </div>
+        <h3>{{this.name}}</h3>
       </div>
-      <h3>{{this.name}}</h3>
-    </div>
-  {{/each}}
-</div>   
+    {{/each}}
+  </div>   
+  </div>
+ 
+
+</div>
