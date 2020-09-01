@@ -1,24 +1,31 @@
 
 <div class="container">
    <div class="row">
-        <div class="col-md-6 img"> 
+        <div class="col-md-4 img"> 
           <img src={{user.photoUrl}} alt={{user.name.lastName}} class="img-circle" height="200" width="200" style="object-fit: cover">
         </div>
-        <div class="col-md-6 details">
-          <blockquote>
-            <h5>{{user.name.firstName}} {{user.name.lastName}} <h5 class="profile-user-name">
-          </blockquote>
-          <form action="/auth/profile/edit" method="get">
-            <button class="btn profile-edit-btn">Edit Profile</button>
-          </form>	
-          <form action="/auth/profile/logout" method="post" onsubmit="return confirm('Are you sure you want to log out?');">
-            <button class="btn btn-lg btn-outline-primary" type="submit">Logout</button>
-          </form>
+        <div class="col-md-4 details">
+          <div class="jumbotron text-center">
+             <h2 class="float-left">{{user.name.firstName}} {{user.name.lastName}}<br></h2>
+          </div>
         </div>
-        <h2 class="h2-responsive"> has attended the following events </h2>
+        <div class="col-md-4 button-group">
+           <div class="jumbotron text-center" height="100" width="100">
+          <form action="/auth/profile/edit" method="get">
+                <button class="btn profile-edit-btn">Edit Profile</button>
+          </form>	
+        </div>
+        <!--
+          <form action="/auth/profile/logout" method="post" onsubmit="return confirm('Are you sure you want to log out?');">
+                <button class="btn profile-edit-btn">Logout</button>
+                <!-<button class="btn btn-lg btn-outline-primary" type="submit">Logout</button>
+           </form>-->
+        </div>
   </div>
 </div>
-   <div class="row" style="border: 1px solid black">
+<div class="container-fluid bg-3 text-center">  
+  <h4 class="h2-responsive"> has attended the  events </h4>
+   <div class="row">
           {{#each user.eventsAttending}}
             <div class="col-sm-4">
               <div id="img-box">
@@ -26,55 +33,30 @@
                 <img src={{this.photoUrl}}/>
                 </a>
               </div>
-              <h2>{{this.name}}</h2>
+              <h4>{{this.name}}</h4>
             </div>
           {{/each}}
-  </div>
-
-
-
+     </div>
+    <h4 class="h2-responsive"> is going to attend the events </h4>
+    <div class="row">
+            {{#each user.eventsAttending}}
+              <div class="col-sm-4">
+                <div id="img-box">
+                  <a href='/events/{{this._id}}'>
+                  <img src={{this.photoUrl}}/>
+                  </a>
+                </div>
+                <h4>{{this.name}}</h4>
+              </div>
+            {{/each}}
+    </div>
   
-
-<!--
-<section class="container mt-4 mb-4">
-<div class="container">
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<div class="d-flex flex-row border rounded">
-	  			<div class="p-0 w-25">
-	  			    <img src="https://c1.staticflickr.com/3/2862/12328317524_18e52b5972_k.jpg" class="img-thumbnail border-0" />
-	  				
-	  			</div>
-	  			<div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
-	  					<h4 class="text-primary">Leanne Boulton</h4>
-	  					<h5 class="text-info">Photographer</h5>
-	  					<ul class="m-0 float-left" style="list-style: none; margin:0; padding: 0">
-	  						<li><i class="fab fa-facebook-square"></i> Facebook</li>
-	  						<li><i class="fab fa-twitter-square"></i> Twitter</li>
-	  					</ul>
-						<p class="text-right m-0"><a href="#" class="btn btn-primary"><i class="far fa-user"></i> View Profile</a></p>
-				</div>
-			</div>
-		</div>
-    <!--
-<header>
-	<div class="container-profile">
-		<div class="profile">
-			<div class="profile-image">
-       			 <img src={{user.photoUrl}} alt={{user.name}}>
-        <div class="profile-user-settings"></div>
-				 <h1 class="profile-user-name">{{user.name.firstName}} {{user.name.lastName}}</h1>
-            <form action="/auth/profile/edit" method="get">
-                <button class="btn profile-edit-btn" type="submit">Edit Profile</button>
-            </form>	
-            <form action="/auth/profile/logout" method="post" onsubmit="return confirm('Are you sure you want to log out?');">
-                <button class="btn profile-edit-btn" type="submit" >Logout</button>
-            </form>	
-        </div>    
-		</div>			
-	</div>
-</div>
-</section>-->
-
-	
-	
+   <div class="row">
+        <div class="col-sm-1 img"> 
+          <form action="/auth/profile/logout" method="post" onsubmit="return confirm('Are you sure you want to log out?');">
+                <button class="btn profile-edit-btn" margin-botton="0">Logout</button>
+                <!--<button class="btn btn-lg btn-outline-primary" type="submit">Logout</button>-->
+           </form>
+        </div>
+      </div>
+    

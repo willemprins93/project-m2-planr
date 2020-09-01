@@ -1,39 +1,43 @@
 {{!-- events-details.hbs --}}
-
-<div class="container text-center"> 
 <!--Buttons-->
-    <form action='/events/{{event._id}}' method='post'>
-        <button type="submit" class="btn btn-primary">Book</button> 
-    </form>
+    <div class="inline-buttons">
+            <div class="row">
+                <form action='/events/{{event._id}}' method='post'>
+                    <button type="submit" class="btn btn-primary text-left">Book</button> 
+                </form>
 
-    {{#if isHosting}}
-    <form action='/events/{{event._id}}/edit' method='get'>
-        <button type="submit" class="btn btn-secondary">Edit</button> 
-    </form>
+                {{#if isHosting}}
+                <form action='/events/{{event._id}}/edit' method='get'>
+                    <button type="submit" class="btn btn-secondary none">Edit</button> 
+                </form>
 
-    <form action='/events/{{event._id}}/delete' onsubmit="return confirm('Are you sure you want to delete this event?');" method='post'>
-        <button type="submit" class="btn btn-danger">Delete</button> 
-    </form>
-    {{/if}}   
-    
-<!--Event details-->
-<h3>{{event.name}}</h3><br>
-  <div class="row">
-    <div class="col-lg-6">
-         <img src={{event.photoUrl}} class="img-responsive center-block" style="width:100%" height="auto" alt="Image">
+                <form action='/events/{{event._id}}/delete' onsubmit="return confirm('Are you sure you want to delete this event?');" method='post'>
+                    <button type="submit" class="btn btn-danger float-left">Delete</button> 
+                </form>
+                {{/if}}   
+            </div>
+        <div> 
     </div>
-        <div class="col-lg-6"> 
-           <div class="container text-justify">   
-            <p class ="text-justify"><b>Description: </b> {{event.description}} </p>
-            <p class ="text-justify"><b>Event Type: </b>  {{event.type}}</p>
-            <p class ="text-justify"><b>Location: </b>  {{event.location}}</p>
-            <p class ="text-justify"><b>Date and Time: </b>  {{justDate}} at {{justTime}}</p>
-            <p class ="text-justify"><b>Host:</b><img src={{event.host.photoUrl}} {{event.host.name.firstName}} class="img-circle" height="55" width="55"></p> 
-            <p class ="text-justify"><b>Attendees: </b>  {{#each event.attendees}}
-            <img src={{photoUrl}} class="img-circle" height="40" width="40" style="object-fit: cover; border-radius: 50%;"> 
-            {{/each}}</p>
-            <a href="/events">Back</a>
-        <div>   
-    <div>
-<div>
+</div>  
 
+<!--Event details-->
+<div class ="container">
+    <h3 class="text-center">{{event.name}}</h3><br>
+    <div class="row">
+        <div class="col-lg-6">
+            <img src={{event.photoUrl}} class="img-responsive center-block" style="width:100%" height="auto" alt="Image">
+        </div>
+            <div class="col-lg-6"> 
+            <div class="container text-justify">   
+                <p class ="text-justify"><b>Description: </b> {{event.description}} </p>
+                <p class ="text-justify"><b>Event Type: </b>  {{event.type}}</p>
+                <p class ="text-justify"><b>Location: </b>  {{event.location}}</p>
+                <p class ="text-justify"><b>Date and Time: </b>  {{justDate}} at {{justTime}}</p>
+                <p class ="text-justify"><b>Host:</b><img src={{event.host.photoUrl}} {{event.host.name.firstName}} class="img-circle" height="55" width="55"></p> 
+                <p class ="text-justify"><b>Attendees: </b>  {{#each event.attendees}}
+                <img src={{photoUrl}} class="img-circle" height="40" width="40" style="object-fit: cover; border-radius: 50%;"> 
+                {{/each}}</p>
+            <div>   
+        <div>
+    <div>
+</div>

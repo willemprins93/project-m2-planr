@@ -90,7 +90,7 @@ const events= [
         type : ['food']
     },
     {
-        name: 'Nature reserve hiking tour',
+        name: 'Nature  hiking tour',
         date: '2020-09-22',
         location: 'Stockholm',
         description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',
