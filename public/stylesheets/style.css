@@ -48,6 +48,35 @@ form  {
     border-color: rgb(23, 155, 89);
 }
 
+.btn-group  {
+    margin: 10px auto;
+    padding: 20px 50px;
+    display: inline-block;
+}
+.btn-primary{
+  background-color: rgb(23, 155, 89);
+  width: 100%;
+  border: 1px solid rgb(23, 155, 89);
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.bt-outline-primary{
+	outline-color:  #00b7ff;
+	background-color: #fff;
+	width: 100%;
+	border: 1px solid #00b7ff;
+	padding: 5px 12px;
+	color:  #00b7ff;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+
 
 .box {
     text-align: center;
@@ -221,33 +250,6 @@ form  {
 	padding: 0 2rem;
 	
 }
-.btn-group  {
-    margin: 10px auto;
-    padding: 20px 50px;
-    display: inline-block;
-}
-.btn-primary{
-  background-color: #00b7ff;
-  width: 100%;
-  border: 1px solid #00b7ff;
-  padding: 5px 12px;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.bt-outline-primary{
-	outline-color:  #00b7ff;
-	background-color: #fff;
-	width: 100%;
-	border: 1px solid #00b7ff;
-	padding: 5px 12px;
-	color:  #00b7ff;
-	font-weight: bold;
-	cursor: pointer;
-	border-radius: 3px;
-}
 
 
 p {
@@ -330,6 +332,7 @@ a {
     background-color: #fff;
     border: 1px solid lightgrey;
     border-radius: 10px;
+
 }
 
 #logout-btn {
