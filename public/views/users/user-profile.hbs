@@ -1,56 +1,45 @@
+<div class="main-container">
+  <div class="container" id="user-banner">
+    <div class="row d-flex align-items-center">
+      <div class="col-md-4 d-flex justify-content-center">
+        <img src={{user.photoUrl}} alt={{user.name.lastName}} id="photo-avatar">
+      </div>
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+        {{!-- <div class="jumbotron text-left"> --}}
+          <h2>{{user.name.firstName}} {{user.name.lastName}}<br></h2>
+        {{!-- </div> --}}
+      </div>
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+        {{!-- <div class="jumbotron text-center" height="100" width="100"> --}}
+          <form action="/auth/profile/edit" method="get">
+            <button class="btn btn-outline-primary">Edit Profile</button>
+          </form>
+        {{!-- </div> --}}
+      </div>
+    </div>
+  </div>
 
-<div class="container">
+  <div class="container">
+    <h4 class="h2-responsive"> {{user.name.firstName}} is attending: </h4>
     <div class="row">
-        <div class="col-md-4 img"> 
-          <img src={{user.photoUrl}} alt={{user.name.lastName}} class="img-circle" height="200" width="200" style="object-fit: cover">
+      {{#each user.eventsAttending}}
+      <div class="col-sm-4">
+        <div id="img-box">
+          <a href="/events/{{this._id}}">
+            <img src={{this.photoUrl}} />
+          </a>
         </div>
-        <div class="col-md-4 details">
-          <div class="jumbotron text-center">
-             <h2 class="float-left">{{user.name.firstName}} {{user.name.lastName}}<br></h2>
-          </div>
-        </div>
-        <div class="col-md-4 button-group">
-           <div class="jumbotron text-center" height="100" width="100">
-              <form action="/auth/profile/edit" method="get">
-                    <button class="btn profile-edit-btn">Edit Profile</button>
-              </form>	
-           </div>
-        </div>
+        <h4>{{this.name}}</h4>
+      </div>
+      {{/each}}
     </div>
+    <div class="row float-right">
+      <div class="col-sm-1">
+        <form action="/auth/profile/logout" method="post" onsubmit="return confirm(‘Are you sure you want to log out?’);">
+          <button class="btn profile-edit-btn" margin-botton="0" id="logout-btn">Logout</button>
+          <!--<button class=“btn btn-lg btn-outline-primary” type=“submit”>Logout</button>-->
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="container-fluid bg-3 text-center">  
-    <h4 class="h2-responsive"> has attended the  events </h4>
-    <div class="row">
-            {{#each user.eventsAttending}}
-              <div class="col-sm-4">
-                <div id="img-box">
-                  <a href='/events/{{this._id}}'>
-                  <img src={{this.photoUrl}}/>
-                  </a>
-                </div>
-                <h4>{{this.name}}</h4>
-              </div>
-            {{/each}}
-    </div>
-    <h4 class="h2-responsive"> is going to attend the events </h4>
-    <div class="row">
-              {{#each user.eventsAttending}}
-                <div class="col-sm-4">
-                  <div id="img-box">
-                    <a href='/events/{{this._id}}'>
-                    <img src={{this.photoUrl}}/>
-                    </a>
-                  </div>
-                  <h4>{{this.name}}</h4>
-                </div>
-              {{/each}}
-    </div>
-    <div class="row">
-          <div class="col-sm-1 img"> 
-            <form action="/auth/profile/logout" method="post" onsubmit="return confirm('Are you sure you want to log out?');">
-                  <button class="btn profile-edit-btn" margin-botton="0">Logout</button>
-                  <!--<button class="btn btn-lg btn-outline-primary" type="submit">Logout</button>-->
-            </form>
-          </div>
-    </div>
-</div>   

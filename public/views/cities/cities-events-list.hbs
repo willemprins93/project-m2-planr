@@ -1,22 +1,27 @@
-<h1>{{city.name}}</h1>
-<div class="row">
-  <div class="container text-center">
-    <div id="img-banner">
-      <img src={{city.photoUrl}} alt={{city.name}}/>
+<div class="main-container">
+  <div class="container">
+    <div class="row">
+      <div class="container text-center">
+        <h1>{{city.name}}</h1>
+      </div>
     </div>
+    <hr>
+
+    {{#if events}}
+    <div class="row">
+      {{#each events}}
+      <div class="col-sm-4">
+        <div id="img-box">
+          <a href='/events/{{_id}}'>
+            <img src={{photoUrl}} alt={{name}}>
+          </a>
+        </div>
+        <h4 class="text-center">{{name}}</h4>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <h3 class="text-center">Looks like there's nothing happening yet, why don't you <a href="/events/create">host an event</a>?</h3>
+    {{/if}}
   </div>
 </div>
-<hr>
-
-<div class="row">
-  {{#each events}}
-    <div class="col-sm-4">
-      <div id="img-box">
-        <a href='/events/{{_id}}'>
-        <img src={{photoUrl}} alt={{name}}>
-        </a>
-      </div>
-      <h3>{{name}}</h3>
-    </div>
-  {{/each}}
-</div>   
