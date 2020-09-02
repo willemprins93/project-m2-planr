@@ -8,11 +8,6 @@
             <div class="col-lg-6">
                 <img src={{event.photoUrl}} class="img-responsive center-block" style="width:100%; border-radius: 10px;" height="auto" alt="Image">
             </div>
-<<<<<<< HEAD
-        <div> 
-    </div>
-</div>  
-=======
             <div class="col-lg-6"> 
                 <div class="container text-justify">   
                     <p class ="text-justify"><b>Description: </b> {{event.description}} </p>
@@ -35,7 +30,6 @@
             <form action='/events/{{event._id}}' method='post'>
                 <button type="submit" class="btn btn-primary">Book</button> 
             </form>
->>>>>>> e02859e52295ef6d24e38d6a868fa9dd324aedfa
 
             {{#if isHosting}}
             <form action='/events/{{event._id}}/edit' method='get'>

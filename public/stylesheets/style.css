@@ -66,17 +66,12 @@ form  {
     width: 100vw;
 }
 
-<<<<<<< HEAD
-.container-fluid text-center{
-    position: abso; 
-=======
 .container-fluid {
     height: 10px; 
 }
 
 .container-fluid text-center {
     position: absolute; 
->>>>>>> e02859e52295ef6d24e38d6a868fa9dd324aedfa
     width: 100%; 
 }
 
