@@ -27,6 +27,83 @@ router.get("/", (req, res) => {
     );
 });
 
+// FILTERED PAGES //////////////////////////////////
+
+router.get('/art', (req, res) => {
+  Event.find({type: 'art'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Art'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/culture', (req, res) => {
+  Event.find({type: 'culture'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Culture'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/food', (req, res) => {
+  Event.find({type: 'food'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Food'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/games', (req, res) => {
+  Event.find({type: 'games'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Games'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/music', (req, res) => {
+  Event.find({type: 'music'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Music'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/networking', (req, res) => {
+  Event.find({type: 'networking'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Networking'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/outdoor', (req, res) => {
+  Event.find({type: 'outdoor'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Outdoor'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+router.get('/sport', (req, res) => {
+  Event.find({type: 'sport'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Sport'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+
+router.get('/tech', (req, res) => {
+  Event.find({type: 'tech'})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: 'Tech'})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+
+
 // CREATE A NEW EVENT //////////////////////////////
 
 router.get("/create", (req, res) => {
