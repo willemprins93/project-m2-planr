@@ -11,39 +11,39 @@ require('dotenv').config();
 require('dotenv').config();
 require('../configs/db.config.js');
 
-const users = [
+// const users = [
  
-      {
-            name: {
-                firstName: 'John',
-                lastName: 'de Boer'
-            },
-            email: 'john@deboer.com',
-            photoUrl:'https://unsplash.com/photos/bZtJgeehRVs?w=152&h=152&fit=crop&crop=faces',
-            eventsHosting:[],
-            eventsAttending:[],
-            passwordHash:'$2a$10$p/DTjgceHCjYDiG92eSSbO1YleGD0reS2O/0p.0fL5bXhZkP7CWMK'
-       },     
-      {  
-            name: {
-                firstName: 'Alice',
-                lastName: 'Rivera'
-            },
-            email: 'alice@rivera.com',
-            photoUrl:'https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces',
-            eventsHosting:[],
-            eventsAttending:[],
-            passwordHash:'$2a$10$Q4OHJu0hHSlsQuAQfxky4.cGmojkzUyrGzDaRaIr1GKJXwAxa8dwi',
-           
-      },
-]
+//       {
+//             name: {
+//                 firstName: 'John',
+//                 lastName: 'de Boer'
+//             },
+//             email: 'john@deboer.com',
+//             photoUrl:'https://unsplash.com/photos/bZtJgeehRVs?w=152&h=152&fit=crop&crop=faces',
+//             eventsHosting:[],
+//             eventsAttending:[],
+//             passwordHash:'$2a$10$p/DTjgceHCjYDiG92eSSbO1YleGD0reS2O/0p.0fL5bXhZkP7CWMK'
+//        },     
+//       {  
+//             name: {
+//                 firstName: 'Alice',
+//                 lastName: 'Rivera'
+//             },
+//             email: 'alice@rivera.com',
+//             photoUrl:'https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces',
+//             eventsHosting:[],
+//             eventsAttending:[],
+//             //passwordHash:'$2a$10$Q4OHJu0hHSlsQuAQfxky4.cGmojkzUyrGzDaRaIr1GKJXwAxa8dwi',//password:Alice1234
+//             passwordHash:'$2a$10$H7YfmNHrrh4wQXAz.dl1reCsN1sjcJF1lpZLflEC/Gz1J1Snq.2fi'//password:Alice5678
+//       },
+// ]
 
-User.create(users)
-  .then(usersFromDB => {
-    console.log(`Created ${usersFromDB.length} users`);
-    mongoose.connection.close();
-  })
-  .catch(err => console.log(`An error occurred while creating users: ${err}`));
+// User.create(users)
+//   .then(usersFromDB => {
+//     console.log(`Created ${usersFromDB.length} users`);
+//     mongoose.connection.close();
+//   })
+//   .catch(err => console.log(`An error occurred while creating users: ${err}`));
 
 
 const events= [
@@ -90,7 +90,7 @@ const events= [
         type : ['food']
     },
     {
-        name: 'Nature reserve hiking tour',
+        name: 'Nature  hiking tour',
         date: '2020-09-22',
         location: 'Stockholm',
         description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',

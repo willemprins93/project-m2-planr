@@ -13,21 +13,22 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">PLANR</a>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="/">
+    <img src="./images/logo-white.png" width="30" height="30" alt="planr-logo-white" id="navbar-logo">PLANR</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/cities">Cities<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/cities">Cities<span class="sr-only"></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/events">Events<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/events">Events<span class="sr-only"></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/auth/profile">Profile<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/auth/profile">Profile<span class="sr-only"></span></a>
       </li>
     </ul>
     {{!-- <form class="form-inline my-2 my-lg-0">
@@ -37,9 +38,9 @@
   </div>
 </nav>
 
-  <div class="container">
-    {{{body}}}
-  </div>
+
+  {{{body}}}
+
 
   <!--Bootstrap js cdn links-->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -54,5 +55,8 @@
   <!-- your script links -->
   <script src="/javascripts/script.js"></script>
 </body>
-
+{{!-- <footer class="container-fluid text-center">
+    <div class="footer-copyright text-center py-5">© 2020 Copyright PLANR.  By Willem Prins & Cristina Matamoro.
+    </div>
+</footer> --}}
 </html>

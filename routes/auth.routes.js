@@ -120,7 +120,13 @@ router.get("/profile", (req, res) => {
     const id = req.session.currentUser._id;
 
     User.findById(id)
-      .populate("eventsHosting eventsAttending")
+      .populate([{
+        path: 'eventsHosting', 
+        model: 'Event'
+      }, {
+        path: 'eventsAttending',
+        model: 'Event'
+      }])
       .then((userFromDB) => {
         console.log("User found for profile: ", userFromDB);
         res.render("users/user-profile", { user: userFromDB });

@@ -3,20 +3,19 @@ const router = express.Router();
 
 // require Models
 const Event = require("../models/Event.model");
-const User = require('../models/User.model')
+const User = require("../models/User.model");
 
 // require fileUploader
 const fileUploader = require("../configs/cloudinary.config");
 
 // require date-fns
-const { format, compareAsc } = require('date-fns')
-
+const { format, compareAsc } = require("date-fns");
 
 // DISPLAY A LIST OF EVENTS ///////////////////////
 
 router.get("/", (req, res) => {
   if (!req.session.currentUser) {
-    res.redirect('/auth/login')
+    res.redirect("/auth/login");
   }
   Event.find()
     .then((allTheEventsFromDB) => {
@@ -28,13 +27,25 @@ router.get("/", (req, res) => {
     );
 });
 
+// FILTERED PAGES //////////////////////////////////
+
+router.get('/filter/:type', (req, res) => {
+  const { type } = req.params
+  Event.find({type: type})
+    .then(eventsFromDB => {
+      res.render('events/events-filtered-list', {events: eventsFromDB, type: type})
+    })
+    .catch(error => console.log('Error retrieving filtered events: ', error))
+});
+
+
 // CREATE A NEW EVENT //////////////////////////////
 
 router.get("/create", (req, res) => {
   if (!req.session.currentUser) {
-    res.redirect('/auth/login')
+    res.redirect("/auth/login");
   }
-  res.render("events/events-create")
+  res.render("events/events-create");
 });
 
 router.post("/create", fileUploader.single("image"), (req, res) => {
@@ -49,29 +60,29 @@ router.post("/create", fileUploader.single("image"), (req, res) => {
     photoUrl = req.body.existingImage;
   }
 
-
   Event.create({ name, date, location, description, type, photoUrl, host: id })
     .then((eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
       res.redirect("/events");
     })
-    .catch(error => console.log(`Error while creating a new event: ${error}`));
+    .catch((error) =>
+      console.log(`Error while creating a new event: ${error}`)
+    );
 });
-
 
 // EDIT AND UPDATE AN EVENT /////////////////////////
 
 router.get("/:id/edit", (req, res) => {
   if (!req.session.currentUser) {
-    res.redirect('/auth/login')
+    res.redirect("/auth/login");
   }
   const { id } = req.params;
 
   Event.findById(id)
     .then((eventToEdit) => {
-        const fillDate = format(eventToEdit.date, 'yyyy-MM-dd\'T\'HH:mm')
+      const fillDate = format(eventToEdit.date, "yyyy-MM-dd'T'HH:mm");
 
-        res.render("events/events-edit", {event: eventToEdit, fillDate });
+      res.render("events/events-edit", { event: eventToEdit, fillDate });
     })
     .catch((error) =>
       console.log(`Error while getting a single event for edit: ${error}`)
@@ -81,13 +92,7 @@ router.get("/:id/edit", (req, res) => {
 router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
   const { id } = req.params;
 
-  const {
-    name,
-    date,
-    location,
-    description,
-    type
-  } = req.body;
+  const { name, date, location, description, type } = req.body;
 
   let photoUrl;
   if (req.file) {
@@ -102,11 +107,11 @@ router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
     { new: true }
   )
     .then((updatedEvent) => {
-      console.log('Event updated: ', updatedEvent)
-      res.redirect(`/events/${updatedEvent._id}`)
+      console.log("Event updated: ", updatedEvent);
+      res.redirect(`/events/${updatedEvent._id}`);
     })
     .catch((error) => {
-      console.log(`Error while updating a single event: ${error}`)
+      console.log(`Error while updating a single event: ${error}`);
     });
 });
 
@@ -124,23 +129,36 @@ router.post("/:id/delete", (req, res) => {
 
 router.get("/:id", (req, res) => {
   if (!req.session.currentUser) {
-    res.redirect('/auth/login')
+    res.redirect("/auth/login");
   }
   const { id } = req.params;
   const isHosting = true;
 
   Event.findById(id)
-    .populate('host attendees')
+    .populate("host attendees")
     .then((foundEvent) => {
-      const justDate = format(foundEvent.date, 'dd/MM/yyyy')
-      const justTime = format(foundEvent.date, 'HH:mm')
+      const justDate = format(foundEvent.date, "dd/MM/yyyy");
+      const justTime = format(foundEvent.date, "HH:mm");
 
-      if (foundEvent.host && foundEvent.host._id.toString() === req.session.currentUser._id.toString()) {
-        res.render("events/events-detail", { event: foundEvent, isHosting, justDate, justTime });
-        console.log('HOSTING TRUE')
+      if (
+        foundEvent.host &&
+        foundEvent.host._id.toString() ===
+          req.session.currentUser._id.toString()
+      ) {
+        res.render("events/events-detail", {
+          event: foundEvent,
+          isHosting,
+          justDate,
+          justTime,
+        });
+        console.log("HOSTING TRUE");
       } else {
-        res.render("events/events-detail", { event: foundEvent, justDate, justTime });
-        console.log('HOSTING FALSE')
+        res.render("events/events-detail", {
+          event: foundEvent,
+          justDate,
+          justTime,
+        });
+        console.log("HOSTING FALSE");
       }
     })
     .catch((err) =>
@@ -148,29 +166,34 @@ router.get("/:id", (req, res) => {
     );
 });
 
-
 // ATTEND/BOOK EVENT //////////////////////////////////////
 
-router.post('/:id', (req, res) => {
+router.post("/:id", (req, res) => {
   const { id } = req.params;
 
   const userId = req.session.currentUser._id;
 
-  Event.findByIdAndUpdate(id, {attendees: [userId]}, {new: true})
-  .then(updatedEvent => {
-    User.findByIdAndUpdate(userId, {eventsAttending: [updatedEvent._id]}, {new: true})
-      .then(updatedUser => {
-        res.redirect(`/events/${id}`)
-        console.log('Updated event: ', updatedEvent)
-        console.log('Updated user: ', updatedUser)
-      })
-  })
-  .catch(error => {
-    console.log('Error while updating event: ', error)
-  })
-
-})
-
-
+  Event.findByIdAndUpdate(
+    id, 
+    { $addToSet: { attendees: [userId] } }, 
+    { new: true }
+    )
+    .then((updatedEvent) => {
+      User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { eventsAttending: updatedEvent._id } },
+        { new: true }
+      )
+      .then((updatedUser) => {
+        req.session.currentUser = updatedUser;
+        res.redirect(`/events/${id}`);
+        console.log("Updated event: ", updatedEvent);
+        console.log("Updated user: ", updatedUser);
+      });
+    })
+    .catch((error) => {
+      console.log("Error while updating event: ", error);
+    });
+});
 
 module.exports = router;
