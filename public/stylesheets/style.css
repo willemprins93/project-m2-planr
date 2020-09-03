@@ -107,8 +107,7 @@ a {
 }
 
 .login-signup-container{
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 25px;
 }
 
 .container-fluid {
@@ -148,7 +147,7 @@ p {
 }
 
 #login-signup {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 #event-buttons {
