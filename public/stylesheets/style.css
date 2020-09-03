@@ -105,6 +105,10 @@ a {
     width: 100vw;
 }
 
+.login-signup-container{
+    margin-top: 25px;
+}
+
 .container-fluid {
     height: 10px; 
 }
