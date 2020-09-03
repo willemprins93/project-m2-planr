@@ -27,7 +27,7 @@ const eventSchema = new Schema(
         type: String,
     },
     type : {
-      type: [String]
+      type: String
     },
     host: { 
       type: Schema.Types.ObjectId, ref: 'User' 
