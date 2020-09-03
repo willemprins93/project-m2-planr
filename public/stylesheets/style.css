@@ -142,6 +142,10 @@ p {
 	text-align: center;
 }
 
+#navbar-logo {
+    margin: 0 40px 0 0;
+}
+
 #login-signup {
     margin-top: 100px;
 }
