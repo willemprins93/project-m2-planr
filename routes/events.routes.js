@@ -49,7 +49,8 @@ router.get("/create", (req, res) => {
 });
 
 router.post("/create", fileUploader.single("image"), (req, res) => {
-  const { name, date, location, description, type } = req.body;
+  //const { name, date, location,address, description, type } = req.body;
+  const { name, date, city, description, type } = req.body;
 
   const id = req.session.currentUser._id;
 
@@ -59,8 +60,8 @@ router.post("/create", fileUploader.single("image"), (req, res) => {
   } else {
     photoUrl = req.body.existingImage;
   }
-
-  Event.create({ name, date, location, description, type, photoUrl, host: id })
+         // { name, date, description, location, address, type, photoUrl, host: id }
+  Event.create({ name, date, description, city, type, photoUrl, host: id })
     .then((eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
       res.redirect("/events");
@@ -91,8 +92,8 @@ router.get("/:id/edit", (req, res) => {
 
 router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
   const { id } = req.params;
-
-  const { name, date, location, description, type } = req.body;
+  //const { name, date, location, address, description, type } = req.body;
+  const { name, date, city, description, type } = req.body;
 
   let photoUrl;
   if (req.file) {
@@ -103,7 +104,8 @@ router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
 
   Event.findByIdAndUpdate(
     id,
-    { name, date, location, description, type, photoUrl },
+    //{ name, date, location, description, address, type, photoUrl },
+    { name, date, city, description, type, photoUrl },
     { new: true }
   )
     .then((updatedEvent) => {

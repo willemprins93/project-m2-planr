@@ -52,92 +52,92 @@ const events= [
     {
           name: 'Kayaking',
           date: '2020-09-20', //// "2002-12-09T00:00:00.000Z"
-          location: 'Stockholm',
+          city: 'Stockholm',
           description: 'Board a kayak and explore the waterways of Stockholm that provide a quiet and idyllic perspective of the city.',
           photoUrl: 'https://images.unsplash.com/photo-1570275342944-68e062d05a5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
           host: null,
           attendees: [],
-          type: ['sport','outdoor']
+          type: 'outdoor'
     },
     {
         name: 'Professional photography tour',
         date: '2020-09-25',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description:'Learn to take better photographs on a 3-hour private photo workshop across Stockholm. Get tips on composition, exposure, and other techniques', 
         photoUrl:'https://images.unsplash.com/photo-1513652990199-8a52e2313122?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
         host:  null,
         attendees: [],
-        type : ['art','culture']
+        type : 'art'
     },
     {
         name: 'Jogging',
         date:  '2020-09-24',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description:'Stay in shape or work up a sweat while exploring the beautiful city of Stockholm.',
         photoUrl:'https://images.unsplash.com/photo-1585473233369-14a97aa923df?ixlib=rb-1.2.1&auto=format&fit=crop&w=2060&q=80',
         host: null,
         attendees: [],
-        type: ['sport','outdoor']
+        type: 'outdoor'
     },
     {
         name: 'Swedish cooking class',
         date: '2020-09-18',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description:'Enjoy and learn to cook traditional Swedish courses like marinated salmon with mustard and dill potatoes, elk meatballs or Scanian apple pie.',
         photoUrl:'https://images.unsplash.com/photo-1498531872221-ce6d6216be71?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80',
         host: null,
         attendees: [],
-        type : ['food']
+        type : 'food'
     },
     {
         name: 'Nature  hiking tour',
         date: '2020-09-22',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description: 'Escape the city and venture into the vast wilderness of Sweden for 1 day as you discover the incredible forests which lie outside of Stockholm.',
         photoUrl:'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
         host: null,
         attendees: [],
-        type : ['sport','outdoor']
+        type : 'sport'
     },
     {
         name: 'Sailing',
         date: '2020-09-24',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description: 'Explore the pristine beauty of thousands of islands in the Stockholm Archipelago on this full-day sailing tour.',
         photoUrl:'https://images.unsplash.com/photo-1501771924607-209f42a6e7e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80',
         host: null,
         attendees: [],
-        type: ['sport','outdoor']
+        type: 'sport'
     },
     {
         name: 'Node coding class',
         date: '2020-09-22',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description: 'Join us to learn Node and set up a learning Front-End website from scratch',
         photoUrl:'https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80',
         host: null,
         attendees: [],
-        type: ['tech','networking']
+        type: 'tech'
     },
     {
         name: 'Bike tour',
         date: '2020-10-02',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description:'Explore the Swedish capital in the most relaxed and convenient way on a guided bike tour.', 
         photoUrl:'https://images.unsplash.com/photo-1563460937-8e3fd7f161f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
         host: null,
         attendees: [],
-        type: ['sport','outdoor']
+        type: 'sport'
     },
     {
         name: 'Abba Museum Entrance',
         date: '2020-10-01',
-        location: 'Stockholm',
+        city: 'Stockholm',
         description: 'ABBA The Museum is no ordinary museum. Here you will get to walk in the footsteps of ABBA, the world’s most successful pop group',
         photoUrl:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
         host: null,
         attendees: [],
-        type : ['music','culture']
+        type : 'music'
     },
 ]
 

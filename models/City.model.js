@@ -6,7 +6,6 @@ const { Schema, model } = mongoose;
 
 const citySchema = new Schema(
   { 
-
     name: { 
       type: String,
       required :true
