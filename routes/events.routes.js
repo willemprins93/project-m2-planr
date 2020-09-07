@@ -4,6 +4,7 @@ const router = express.Router();
 // require Models
 const Event = require("../models/Event.model");
 const User = require("../models/User.model");
+const Comment = require("../models/Comment.model");
 
 // require fileUploader
 const fileUploader = require("../configs/cloudinary.config");
@@ -127,46 +128,87 @@ router.post("/:id/delete", (req, res) => {
     .catch((error) => console.log(`Error while deleting a event: ${error}`));
 });
 
-// SINGLE EVENT DETAILS /////////////////////////////////////
+// SINGLE EVENT DETAILS AND UDPATE COMMENTS ON IT/////////////////////////////////////
+  //1.RETRIEVING EVENT DETAILS SITE
+  router.get("/:id", (req, res) => {
+    if (!req.session.currentUser) {
+      res.redirect("/auth/login");
+    }
+    const { id } = req.params;
+    const isHosting = true;
 
-router.get("/:id", (req, res) => {
-  if (!req.session.currentUser) {
-    res.redirect("/auth/login");
-  }
-  const { id } = req.params;
-  const isHosting = true;
+    Event.findById(id)
+      .populate("host attendees")
+      .then((foundEvent) => {
+        const justDate = format(foundEvent.date, "dd/MM/yyyy");
+        const justTime = format(foundEvent.date, "HH:mm");
 
-  Event.findById(id)
-    .populate("host attendees")
-    .then((foundEvent) => {
-      const justDate = format(foundEvent.date, "dd/MM/yyyy");
-      const justTime = format(foundEvent.date, "HH:mm");
+        if (
+          foundEvent.host &&
+          foundEvent.host._id.toString() ===
+            req.session.currentUser._id.toString()
+        ) {
+          res.render("events/events-detail", {
+            event: foundEvent,
+            isHosting,
+            justDate,
+            justTime,
+          });
+          console.log("HOSTING TRUE");
+        } else {
+          res.render("events/events-detail", {
+            event: foundEvent,
+            justDate,
+            justTime,
+          });
+          console.log("HOSTING FALSE");
+        }
+      })
+      .catch((err) =>
+        console.log(`Err while getting the specific event from the  DB: ${err}`)
+      );
+  });
 
-      if (
-        foundEvent.host &&
-        foundEvent.host._id.toString() ===
-          req.session.currentUser._id.toString()
-      ) {
-        res.render("events/events-detail", {
-          event: foundEvent,
-          isHosting,
-          justDate,
-          justTime,
-        });
-        console.log("HOSTING TRUE");
-      } else {
-        res.render("events/events-detail", {
-          event: foundEvent,
-          justDate,
-          justTime,
-        });
-        console.log("HOSTING FALSE");
-      }
-    })
-    .catch((err) =>
-      console.log(`Err while getting the specific event from the  DB: ${err}`)
-    );
-});
+//2.CREATE A COMMENT ON SINGLE EVENT DETAILS SITE
+
+  router.post("/:id/comments", (req, res) => {
+    if (!req.session.currentUser) {
+      res.redirect("/auth/login");
+    }
+    const { id } = req.params;
+    const { user, date, text } = req.body
+
+    Event.findByIdAndUpdate(
+      id,
+      { user, date, text },
+      { new: true }
+    )
+      .then((createdComment) => {
+          console.log("Comment created : ", createdComment);
+          res.render("events/events-detail", {
+            //res.redirect(`/events/events-detail/${createdComment._id}`);
+          });
+      })
+      .catch((err) =>
+        console.log(`Err while creating a comment : ${err}`)
+      );
+
+      // .then(dbEvents => {
+      //   let newComment;
+      //   // saving new comments
+      //   newComment
+      //   .save()
+      //   .then(dbComment => {
+      //     // adding this comment to the list of comments
+      //     dbEvents.comments.push(dbComment._id);
+      //     // save changes in the event
+      //     dbEvents
+      //       .save()       // 5. if everything is ok, we redirect to the same page to see the comment
+      //       .then(createdComment => res.redirect(`/events/${createdComment._id}`))
+      //   });
+      // });
+
+  });
 
 // ATTEND/BOOK EVENT //////////////////////////////////////
 

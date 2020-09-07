@@ -33,7 +33,7 @@ async function getEvents() {
     loadMap(events);
   }
   
-  // Load map with stores
+  // Load map with events
   function loadMap(events) {
     map.on('load', function() {
       map.addLayer({

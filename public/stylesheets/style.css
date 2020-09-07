@@ -241,3 +241,12 @@ p {
 #delete-profile-btn {
     margin-top: 20px;
 }
+
+#user-banner-comment {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+
+}
