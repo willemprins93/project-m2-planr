@@ -4,7 +4,7 @@
 // const User = require('../models/User.model');
 // const Event = require('../models/Event.model');
 // const Comment = require('../models/Comment.model');
-
+ 
 // ****************************************************************************************
 // POST route - create a comment for a specific event
 // ****************************************************************************************

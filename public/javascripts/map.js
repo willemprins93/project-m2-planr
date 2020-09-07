@@ -33,7 +33,7 @@ async function getEvents() {
     loadMap(events);
   }
   
-  // Load map with events
+  // Load map with eve
   function loadMap(events) {
     map.on('load', function() {
       map.addLayer({

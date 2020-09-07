@@ -172,9 +172,7 @@ router.post("/:id/delete", (req, res) => {
 //2.CREATE A COMMENT ON SINGLE EVENT DETAILS SITE
 
   router.post("/:id/comments", (req, res) => {
-    if (!req.session.currentUser) {
-      res.redirect("/auth/login");
-    }
+    
     const { id } = req.params;
     const { user, date, text } = req.body
 
