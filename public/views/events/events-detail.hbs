@@ -6,13 +6,14 @@
         <h3 class="text-center">{{event.name}}</h3><br>
         <div class="row">
             <div class="col-lg-6">
-                <img src={{event.photoUrl}} class="img-responsive center-block" style="width:100%; border-radius: 10px;" height="auto" alt="Image">
+                <img src="{{event.photoUrl}}" class="img-responsive center-block" style="width:100%; border-radius: 10px;" height="auto" alt="Image">
             </div>
             <div class="col-lg-6"> 
                 <div class="container text-justify">   
                     <p class ="text-justify"><b>Description: </b> {{event.description}} </p>
                     <p class ="text-justify"><b>Event Type: </b>  {{event.type}}</p>
                     <p class ="text-justify"><b>City: </b>  {{event.city}}</p>
+                    <p class ="text-justify"><b>Location: </b>  {{event.location.formattedAddress}}</p>
                     <p class ="text-justify"><b>Date and Time: </b>  {{justDate}} at {{justTime}}</p>
                     <p class ="text-justify"><b>Host:</b> <img src={{event.host.photoUrl}} {{event.host.name.firstName}} id="photo-icon"></p> 
                     <p class ="text-justify"><b>Attendees: </b>  {{#each event.attendees}}
@@ -40,18 +41,17 @@
                 <button type="submit" class="btn btn-danger">Delete</button> 
             </form>
             {{/if}}   
-        </div>
-    <!-- Map -->   
+        </div>   
     </div>
+    <!-- Map -->
     <div id='map' style='width: 1200px; height: 300px;border-radius: 5px'>
     </div>
-    </div>
     <!-- Comments -->
-     <div class="card-body">
+    <div class="card-body">
 	        <div class="row">
         	    <div class="col-md-2">
                     <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    <img src={{user.photoUrl}} alt={{user.name.lastName}} id="photo-icon">
+                    <img src="{{user.photoUrl}}" alt="{{user.name.lastName}}" id="photo-icon">
         	        <!--<p class="text-secondary text-center">15 Minutes Ago</p>-->
         	    </div>
         	    <div class="col-md-10">
@@ -64,11 +64,12 @@
                             <input type="text" class="form-control" id="inputComment" name="comment" value="{{event.comment.text}}" required>
                         </form>
                         <div class="row float-right">
-                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1">
                               <button type="submit" class="btn btn-outline-primary" margin-bottom="0">Post comment</button>
                             </div>
                         </div>
                     </div>
 	            </div>
             </div>
+    </div>
 </div>

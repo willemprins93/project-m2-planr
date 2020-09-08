@@ -43,6 +43,7 @@ router.get('/filter/:type', (req, res) => {
 // CREATE A NEW EVENT //////////////////////////////
 
 router.get("/create", (req, res) => {
+  console.log('CREATE')
   if (!req.session.currentUser) {
     res.redirect("/auth/login");
   }
@@ -50,8 +51,9 @@ router.get("/create", (req, res) => {
 });
 
 router.post("/create", fileUploader.single("image"), (req, res) => {
+  console.log('YESSIR')
   //const { name, date, location,address, description, type } = req.body;
-  const { name, date, city, description, type } = req.body;
+  const { name, date, city, address, description, type } = req.body;
 
   const id = req.session.currentUser._id;
 
@@ -62,7 +64,7 @@ router.post("/create", fileUploader.single("image"), (req, res) => {
     photoUrl = req.body.existingImage;
   }
          // { name, date, description, location, address, type, photoUrl, host: id }
-  Event.create({ name, date, description, city, type, photoUrl, host: id })
+  Event.create({ name, date, description, city, address, type, photoUrl, host: id })
     .then((eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
       res.redirect("/events");

@@ -3,7 +3,8 @@
 // Importing mongoose and geocoder modules require this Event model
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
-const geocoder = require('geocoder');
+
+const geocoder = require('../utils/geocoder');
 
 const eventSchema = new Schema(
   {
@@ -71,18 +72,20 @@ const eventSchema = new Schema(
   }
 );
 
-// eventSchema.pre('save', async function(next) {
-//   const loc = await geocoder.geocode(this.address);
-//   this.location = {
-//     type: 'Point',
-//     coordinates: [loc[0].longitude, loc[0].latitude],
-//     formattedAddress: loc[0].formattedAddress
-//   };
+//Geocode and create location
+eventSchema.pre('save', async function(next) {
+  const loc = await geocoder.geocode(this.address);
+  console.log(loc)
+  this.location = {
+    type: 'Point',
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress
+  };
 
-//   // Do not save address
-//   //this.address = undefined;
-//   next();
-// });
+  // Do not save address
+  this.address = undefined;
+  next();
+});
 
 
 module.exports = model('Event', eventSchema);

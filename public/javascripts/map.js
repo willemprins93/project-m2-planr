@@ -13,7 +13,7 @@ async function getEvents() {
     const res = await fetch('/api/v1/events');
     const data = await res.json();
   
-    const stores = data.data.map(event => {
+    const events = data.data.map(event => {
       return {
         type: 'Feature',
         geometry: {
