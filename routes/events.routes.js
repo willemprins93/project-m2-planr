@@ -30,21 +30,23 @@ router.get("/", (req, res) => {
 
 // FILTERED PAGES //////////////////////////////////
 
-router.get('/filter/:type', (req, res) => {
-  const { type } = req.params
-  
-  Event.find({type: type})
-    .then(eventsFromDB => {
-      res.render('events/events-filtered-list', {events: eventsFromDB, type: type})
-    })
-    .catch(error => console.log('Error retrieving filtered events: ', error))
-});
+router.get("/filter/:type", (req, res) => {
+  const { type } = req.params;
 
+  Event.find({ type: type })
+    .then((eventsFromDB) => {
+      res.render("events/events-filtered-list", {
+        events: eventsFromDB,
+        type: type,
+      });
+    })
+    .catch((error) => console.log("Error retrieving filtered events: ", error));
+});
 
 // CREATE A NEW EVENT //////////////////////////////
 
 router.get("/create", (req, res) => {
-  console.log('CREATE')
+  console.log("CREATE");
   if (!req.session.currentUser) {
     res.redirect("/auth/login");
   }
@@ -52,8 +54,6 @@ router.get("/create", (req, res) => {
 });
 
 router.post("/create", fileUploader.single("image"), (req, res) => {
-  console.log('YESSIR')
-  //const { name, date, location,address, description, type } = req.body;
   const { name, date, city, address, description, type } = req.body;
 
   const id = req.session.currentUser._id;
@@ -64,8 +64,17 @@ router.post("/create", fileUploader.single("image"), (req, res) => {
   } else {
     photoUrl = req.body.existingImage;
   }
-         // { name, date, description, location, address, type, photoUrl, host: id }
-  Event.create({ name, date, description, city, address, type, photoUrl, host: id })
+  // { name, date, description, location, address, type, photoUrl, host: id }
+  Event.create({
+    name,
+    date,
+    description,
+    city,
+    address,
+    type,
+    photoUrl,
+    host: id,
+  })
     .then((eventFromDB) => {
       console.log(`New event created: ${eventFromDB.title}.`);
       res.redirect("/events");
@@ -132,84 +141,91 @@ router.post("/:id/delete", (req, res) => {
 });
 
 // SINGLE EVENT DETAILS AND UDPATE COMMENTS ON IT/////////////////////////////////////
-  //1.RETRIEVING EVENT DETAILS SITE
-  router.get("/:id", (req, res) => {
-    if (!req.session.currentUser) {
-      res.redirect("/auth/login");
-    }
-    const { id } = req.params;
-    const isHosting = true;
 
-    Event.findById(id)
-      .populate("host attendees")
-      .then((foundEvent) => {
-        const justDate = format(foundEvent.date, "dd/MM/yyyy");
-        const justTime = format(foundEvent.date, "HH:mm");
+//1.RETRIEVING EVENT DETAILS SITE
+router.get("/:id", (req, res) => {
+  console.log("HOUSTON");
+  if (!req.session.currentUser) {
+    console.log();
+    res.redirect("/auth/login");
+  }
+  const { id } = req.params;
+  const isHosting = true;
 
-        if (
-          foundEvent.host &&
-          foundEvent.host._id.toString() ===
-            req.session.currentUser._id.toString()
-        ) {
-          res.render("events/events-detail", {
-            event: foundEvent,
-            isHosting,
-            justDate,
-            justTime,
-          });
-          console.log("HOSTING TRUE");
-        } else {
-          res.render("events/events-detail", {
-            event: foundEvent,
-            justDate,
-            justTime,
-          });
-          console.log("HOSTING FALSE");
-        }
-      })
-      .catch((err) =>
-        console.log(`Err while getting the specific event from the  DB: ${err}`)
-      );
-  });
+  Event.findById(id)
+    .populate("host attendees")
+    .then((foundEvent) => {
+      const justDate = format(foundEvent.date, "dd/MM/yyyy");
+      const justTime = format(foundEvent.date, "HH:mm");
+
+      if (
+        foundEvent.host &&
+        foundEvent.host._id.toString() ===
+          req.session.currentUser._id.toString()
+      ) {
+        res.render("events/events-detail", {
+          event: foundEvent,
+          isHosting,
+          justDate,
+          justTime,
+        });
+        console.log("HOSTING TRUE");
+      } else {
+        res.render("events/events-detail", {
+          event: foundEvent,
+          justDate,
+          justTime,
+        });
+        console.log("HOSTING FALSE");
+      }
+    })
+    .catch((err) =>
+      console.log(`Err while getting the specific event from the  DB: ${err}`)
+    );
+});
+
+router.get("/:id/map-details", (req, res) => {
+  const { id } = req.params;
+
+  Event.findById(id)
+    .then(eventFromDB => {
+      const { location } = eventFromDB;
+
+      res.json(location);
+    })
+    .catch(err => console.log('Error while retrieving location details: ', err))
+});
 
 //2.CREATE A COMMENT ON SINGLE EVENT DETAILS SITE
 
-  router.post("/:id/comments", (req, res) => {
-    
-    const { id } = req.params;
-    const { user, date, text } = req.body
+router.post("/:id/comment", (req, res) => {
+  const { id } = req.params;
+  const { user, text } = req.body;
 
-    Event.findByIdAndUpdate(
-      id,
-      { user, date, text },
-      { new: true }
-    )
-      .then((createdComment) => {
-          console.log("Comment created : ", createdComment);
-          res.render("events/events-detail", {
-            //res.redirect(`/events/events-detail/${createdComment._id}`);
-          });
-      })
-      .catch((err) =>
-        console.log(`Err while creating a comment : ${err}`)
-      );
+  Event.findByIdAndUpdate(id, { user, text }, { new: true })
+    .then((createdComment) => {
+      console.log("Comment created : ", createdComment);
+      res.render("events/events-detail", {
+        //res.redirect(`/events/events-detail/${createdComment._id}`);
+      });
+    })
+    .catch((err) => console.log(`Err while creating a comment : ${err}`));
 
-      // .then(dbEvents => {
-      //   let newComment;
-      //   // saving new comments
-      //   newComment
-      //   .save()
-      //   .then(dbComment => {
-      //     // adding this comment to the list of comments
-      //     dbEvents.comments.push(dbComment._id);
-      //     // save changes in the event
-      //     dbEvents
-      //       .save()       // 5. if everything is ok, we redirect to the same page to see the comment
-      //       .then(createdComment => res.redirect(`/events/${createdComment._id}`))
-      //   });
-      // });
-
-  });
+  // .then(dbEvents => {
+  //   let newComment;
+  //   // saving new comments
+  //   newComment
+  //   .save()
+  //   .then(dbComment => {
+  //     // adding this comment to the list of comments
+  //     dbEvents.comments.push(dbComment._id);
+  //     // save changes in the event
+  //     dbEvents
+  //       .save()       // 5. if everything is ok, we redirect to the same page to see the comment
+  //       .then(createdComment => res.redirect(`/events/${createdComment._id}`))
+  //   });
+  // });
+});
 
 // ATTEND/BOOK EVENT //////////////////////////////////////
 
@@ -219,17 +235,16 @@ router.post("/:id", (req, res) => {
   const userId = req.session.currentUser._id;
 
   Event.findByIdAndUpdate(
-    id, 
-    { $addToSet: { attendees: [userId] } }, 
+    id,
+    { $addToSet: { attendees: [userId] } },
     { new: true }
-    )
+  )
     .then((updatedEvent) => {
       User.findByIdAndUpdate(
         userId,
         { $addToSet: { eventsAttending: updatedEvent._id } },
         { new: true }
-      )
-      .then((updatedUser) => {
+      ).then((updatedUser) => {
         req.session.currentUser = updatedUser;
         res.redirect(`/events/${id}`);
         console.log("Updated event: ", updatedEvent);

@@ -52,18 +52,8 @@ const eventSchema = new Schema(
     attendees: [{ 
       type: Schema.Types.ObjectId, ref: 'User' 
     }],
-    comment: [{ 
-        user: { 
-          type: Schema.Types.ObjectId, ref: 'User'
-       },
-        date: { 
-          type: Date, 
-          default: Date.now
-        },
-        text: { 
-          type: String,
-          maxlength: 200 
-        }
+    comments: [{ 
+      type: Schema.Types.ObjectId, ref: 'Comment'
     }],
 
   },
