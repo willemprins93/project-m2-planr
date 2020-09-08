@@ -32,6 +32,7 @@ router.get("/", (req, res) => {
 
 router.get('/filter/:type', (req, res) => {
   const { type } = req.params
+  
   Event.find({type: type})
     .then(eventsFromDB => {
       res.render('events/events-filtered-list', {events: eventsFromDB, type: type})
