@@ -1,22 +1,22 @@
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYXVkaXRvcmkiLCJhIjoiY2tlcDVkaGk4MDh2NDJzbm82czg4djR5MCJ9.dH-MrlVpmgzfSkY8wdOZdA";
-let map = new mapboxgl.Map({
-  container: "map",
-  style: "mapbox://styles/mapbox/streets-v11",
-  zoom: 1,
-  center: [4.89798, 52.37709],
-});
-
 // Fetch event from API
-async function getEvent() {
+async function loadMap() {
   const res = await axios.get(`${window.location.href}/map-details`);
 
   const location = res.data;
 
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoiYXVkaXRvcmkiLCJhIjoiY2tlcDVkaGk4MDh2NDJzbm82czg4djR5MCJ9.dH-MrlVpmgzfSkY8wdOZdA";
+  let map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v11",
+    zoom: 8,
+    center: [ location.coordinates[0], location.coordinates[1] ],
+  });
+
   map.on("load", function () {
     // Add an image to use as a custom marker
     map.loadImage(
-      "https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png",
+      "../images/planr_marker.png",
       function (error, image) {
         if (error) throw error;
         map.addImage("custom-marker", image);
@@ -31,11 +31,15 @@ async function getEvent() {
                 type: "Feature",
                 geometry: {
                   type: "Point",
-                  coordinates: [ location.coordinates[0], location.coordinates[1] ],
+                  coordinates: [
+                    location.coordinates[0],
+                    location.coordinates[1],
+                  ],
                 },
-                properties: {
-                  title: "Event",
-                },
+                // OPTIONAL TEXT UNDERNEATH ICON
+                // properties: {
+                //   title: "Event",
+                // },
               },
             ],
           },
@@ -60,5 +64,4 @@ async function getEvent() {
   });
 }
 
-
-getEvent();
+loadMap();
