@@ -144,7 +144,6 @@ router.post("/:id/delete", (req, res) => {
 
 //1.RETRIEVING EVENT DETAILS SITE
 router.get("/:id", (req, res) => {
-  console.log("HOUSTON");
   if (!req.session.currentUser) {
     console.log();
     res.redirect("/auth/login");
@@ -153,43 +152,54 @@ router.get("/:id", (req, res) => {
   const isHosting = true;
 
   Event.findById(id)
-    .populate([{
-      path: 'host', 
-      model: 'User'
-    }, {
-      path: 'attendees',
-      model: 'User'
-    }, {
-      path: 'comments',
-      populate: {
-        path: 'user',
-        model: 'User'
-      }
-    }])
+    .populate([
+      {
+        path: "host",
+        model: "User",
+      },
+      {
+        path: "attendees",
+        model: "User",
+      },
+      {
+        path: "comments",
+        populate: {
+          path: "user",
+          model: "User",
+        },
+      },
+    ])
     .then((foundEvent) => {
-      const justDate = format(foundEvent.date, "dd/MM/yyyy");
-      const justTime = format(foundEvent.date, "HH:mm");
+      const currentUserId = req.session.currentUser._id;
 
-      if (
-        foundEvent.host &&
-        foundEvent.host._id.toString() ===
-          req.session.currentUser._id.toString()
-      ) {
-        res.render("events/events-detail", {
-          event: foundEvent,
-          isHosting,
-          justDate,
-          justTime,
-        });
-        console.log("HOSTING TRUE");
-      } else {
-        res.render("events/events-detail", {
-          event: foundEvent,
-          justDate,
-          justTime,
-        });
-        console.log("HOSTING FALSE");
-      }
+      User.findById(currentUserId).then((currentUser) => {
+        const justDate = format(foundEvent.date, "dd/MM/yyyy");
+        const justTime = format(foundEvent.date, "HH:mm");
+
+        if (
+          foundEvent.host &&
+          foundEvent.host._id.toString() ===
+            req.session.currentUser._id.toString()
+        ) {
+          res.render("events/events-detail", {
+            event: foundEvent,
+            currentUser,
+            isHosting,
+            justDate,
+            justTime,
+          });
+          console.log("HOSTING TRUE");
+        } else {
+          res.render("events/events-detail", {
+            event: foundEvent,
+            currentUser,
+            justDate,
+            justTime,
+          });
+          console.log("HOSTING FALSE");
+        }
+      })
+      .catch((err) => console.log('Err while retrieving current User => :', err))
     })
     .catch((err) =>
       console.log(`Err while getting the specific event from the  DB: ${err}`)
@@ -200,28 +210,54 @@ router.get("/:id/map-details", (req, res) => {
   const { id } = req.params;
 
   Event.findById(id)
-    .then(eventFromDB => {
+    .then((eventFromDB) => {
       const { location } = eventFromDB;
 
       res.json(location);
     })
-    .catch(err => console.log('Error while retrieving location details: ', err))
+    .catch((err) =>
+      console.log("Error while retrieving location details: ", err)
+    );
 });
 
 //2.CREATE A COMMENT ON SINGLE EVENT DETAILS SITE
 
 router.post("/:id/comment", (req, res) => {
   const { id } = req.params;
-  const { user, text } = req.body;
+  const { userId, text } = req.body;
 
-  Event.findByIdAndUpdate(id, { user, text }, { new: true })
-    .then((createdComment) => {
-      console.log("Comment created : ", createdComment);
-      res.render("events/events-detail", {
-        //res.redirect(`/events/events-detail/${createdComment._id}`);
-      });
+  Comment
+    .create({userId, text})
+    .then((newComment) => {
+      Event.findByIdAndUpdate(
+        id, 
+        {$addToSet: {comment: newComment._id}},
+        {new: true}
+        ).then((updatedEvent) => {
+          User.findByIdAndUpdate(
+            userId,
+            { $addToSet: { comments: newComment._id } },
+            { new: true }
+          ).then((updatedUser) => {
+            req.session.currentUser = updatedUser;
+            res.redirect(`/events/${id}`);
+            console.log("Updated event: ", updatedEvent);
+            console.log("Updated user: ", updatedUser);
+          })
+          .catch(err => console.log('Error updating user with comment: ', err))
+        })
+        .catch(err => console.log('Error updating event with comment: ', err))
     })
-    .catch((err) => console.log(`Err while creating a comment : ${err}`));
+    .catch(err => console.log('Error creating comment: ', err))
+
+  // Event.findByIdAndUpdate(id, { user, text }, { new: true })
+  //   .then((createdComment) => {
+  //     console.log("Comment created : ", createdComment);
+  //     res.render("events/events-detail", {
+  //       //res.redirect(`/events/events-detail/${createdComment._id}`);
+  //     });
+  //   })
+  //   .catch((err) => console.log(`Err while creating a comment : ${err}`));
 
   // .then(dbEvents => {
   //   let newComment;
