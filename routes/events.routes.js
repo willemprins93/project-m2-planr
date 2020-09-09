@@ -153,7 +153,19 @@ router.get("/:id", (req, res) => {
   const isHosting = true;
 
   Event.findById(id)
-    .populate("host attendees")
+    .populate([{
+      path: 'host', 
+      model: 'User'
+    }, {
+      path: 'attendees',
+      model: 'User'
+    }, {
+      path: 'comments',
+      populate: {
+        path: 'user',
+        model: 'User'
+      }
+    }])
     .then((foundEvent) => {
       const justDate = format(foundEvent.date, "dd/MM/yyyy");
       const justTime = format(foundEvent.date, "HH:mm");
