@@ -29,7 +29,7 @@ router.get('/:id/events', (req, res) => {
     City.findById(id)
         .then(cityFromDB => {
             console.log('City found: ', cityFromDB)
-            Event.find({location: cityFromDB.name})
+            Event.find({city: cityFromDB.name})
                 .then(eventsFromDB => {
                     console.log(`Events found for ${cityFromDB.name}: ${eventsFromDB}`)
                     res.render('cities/cities-events-list', {city: cityFromDB, events: eventsFromDB})
