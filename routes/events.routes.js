@@ -227,11 +227,11 @@ router.post("/:id/comment", (req, res) => {
   const { userId, text } = req.body;
 
   Comment
-    .create({userId, text})
+    .create({user: userId, text})
     .then((newComment) => {
       Event.findByIdAndUpdate(
         id, 
-        {$addToSet: {comment: newComment._id}},
+        {$addToSet: {comments: newComment._id}},
         {new: true}
         ).then((updatedEvent) => {
           User.findByIdAndUpdate(

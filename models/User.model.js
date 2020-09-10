@@ -42,6 +42,9 @@ const userSchema = new Schema(
         //ref: "Event",
       },
     ],
+    comments: [{ 
+      type: Schema.Types.ObjectId, ref: 'Comment'
+    }],
     passwordHash: {
       type: String,
       required: [true, "Password is required."],
