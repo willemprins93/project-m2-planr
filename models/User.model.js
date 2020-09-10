@@ -27,6 +27,7 @@ const userSchema = new Schema(
     },
     photoUrl: {
       type: String,
+      default: '/images/green-ava.png'
     },
     eventsHosting: [
       {
