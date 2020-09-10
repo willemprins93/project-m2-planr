@@ -9,6 +9,9 @@ const Comment = require("../models/Comment.model");
 // require fileUploader
 const fileUploader = require("../configs/cloudinary.config");
 
+// require geocoder
+const geocoder = require('../utils/geocoder');
+
 // require date-fns
 const { format, compareAsc } = require("date-fns");
 
@@ -106,7 +109,7 @@ router.get("/:id/edit", (req, res) => {
 router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
   const { id } = req.params;
   //const { name, date, location, address, description, type } = req.body;
-  const { name, date, city, description, type } = req.body;
+  const { name, date, city, address, description, type } = req.body;
 
   let photoUrl;
   if (req.file) {
@@ -115,19 +118,32 @@ router.post("/:id/edit", fileUploader.single("image"), (req, res) => {
     photoUrl = req.body.existingImage;
   }
 
-  Event.findByIdAndUpdate(
-    id,
-    //{ name, date, location, description, address, type, photoUrl },
-    { name, date, city, description, type, photoUrl },
-    { new: true }
-  )
-    .then((updatedEvent) => {
-      console.log("Event updated: ", updatedEvent);
-      res.redirect(`/events/${updatedEvent._id}`);
-    })
-    .catch((error) => {
-      console.log(`Error while updating a single event: ${error}`);
-    });
+  let location;
+
+  async function geocodeAddress(next) {
+    const loc = await geocoder.geocode(address);
+    console.log(loc)
+    location = {
+      type: 'Point',
+      coordinates: [loc[0].longitude, loc[0].latitude],
+      formattedAddress: loc[0].formattedAddress
+    };
+
+    Event.findByIdAndUpdate(
+      id,
+      { name, date, city, location, description, type, photoUrl },
+      { new: true }
+    )
+      .then((updatedEvent) => {
+        console.log("Event updated: ", updatedEvent);
+        res.redirect(`/events/${updatedEvent._id}`);
+      })
+      .catch((error) => {
+        console.log(`Error while updating a single event: ${error}`);
+      });
+  }
+  
+  geocodeAddress();
 });
 
 // DELETE AN EVENT /////////////////////////////////
@@ -176,6 +192,12 @@ router.get("/:id", (req, res) => {
         const justDate = format(foundEvent.date, "dd/MM/yyyy");
         const justTime = format(foundEvent.date, "HH:mm");
 
+        // const isAttending = false;
+
+        // if (foundEvent.attendees.includes(currentUserId.toString())) {
+        //   isAttending = true;
+        // }
+
         if (
           foundEvent.host &&
           foundEvent.host._id.toString() ===
@@ -185,6 +207,7 @@ router.get("/:id", (req, res) => {
             event: foundEvent,
             currentUser,
             isHosting,
+            isAttending,
             justDate,
             justTime,
           });
@@ -193,6 +216,7 @@ router.get("/:id", (req, res) => {
           res.render("events/events-detail", {
             event: foundEvent,
             currentUser,
+            isAttending,
             justDate,
             justTime,
           });

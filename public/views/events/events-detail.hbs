@@ -19,7 +19,7 @@
                     <p class="text-justify"><b>Host:</b> <img src={{event.host.photoUrl}} {{event.host.name.firstName}}
                             id="photo-icon"></p>
                     <p class="text-justify"><b>Attendees: </b> {{#each event.attendees}}
-                        <img src="{{this.photoUrl}}" id="photo-icon">
+                        <a href="/auth/{{this._id}}/profile" ><img src="{{this.photoUrl}}" id="photo-icon"></a>
                         {{/each}}</p>
                     <div>
                     </div>
@@ -30,9 +30,15 @@
             <!-- Buttons -->
             <div class="container">
                 <div class="container" id="event-buttons">
+                    {{#if isAttending}}
+                    <form action='/events/{{event._id}}' method='post'>
+                        <button type="submit" class="btn btn-danger">Cancel</button>
+                    </form>
+                    {{else}}
                     <form action='/events/{{event._id}}' method='post'>
                         <button type="submit" class="btn btn-primary">Book</button>
                     </form>
+                    {{/if}}
 
                     {{#if isHosting}}
                     <form action='/events/{{event._id}}/edit' method='get'>
@@ -65,9 +71,9 @@
             {{/each}}
             <div class="container" id="comment-form">
                 <div class="row dflex align-items-center">
-                    <div class="col-sm-2 d-flex justify-content-center">
+                    <div class="col-sm-2 d-flex align-items-center justify-content-center">
                         <div class="container">
-                            <img src="{{currentUser.photoUrl}}" alt="{{currentUser.name.lastName}}" id="photo-avatar">
+                            <img src="{{currentUser.photoUrl}}" alt="{{currentUser.name.lastName}}" id="comment-photo">
                         </div>
                     </div>
                     <div class="col-sm-8 d-flex justify-content-center">

@@ -11,9 +11,11 @@
       </div>
       <div class="col-md-4 d-flex justify-content-center align-items-center">
         {{!-- <div class="jumbotron text-center" height="100" width="100"> --}}
+          {{#if isUser}}
           <form action="/auth/profile/edit" method="get">
             <button class="btn btn-outline-primary">Edit Profile</button>
           </form>
+          {{/if}}
         {{!-- </div> --}}
       </div>
     </div>
@@ -34,14 +36,12 @@
       </div>
       {{/each}}
     </div>
-    <div class="row">
-      <div class="row float-right">
-      <div class="col-sm-1 float-right">
+    <div class="row flex-row-reverse">
+      <div class="col-sm-2">
         <form action="/auth/profile/logout" method="post" onsubmit="return confirm(‘Are you sure you want to log out?’);">
           <button class="btn btn-primary-outline" id="logout-btn">Logout</button>
           <!--<button class=“btn btn-lg btn-outline-primary” type=“submit”>Logout</button>-->
         </form>
-      </div>
       </div>
     </div>
   </div>

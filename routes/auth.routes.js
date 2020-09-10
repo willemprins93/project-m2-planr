@@ -113,11 +113,12 @@ router.post("/profile/logout", (req, res) => {
   }
 });
 
-// USER PROFILE /////////////////////////////////
+// OTHER PROFILES ///////////////////////////////
 
-router.get("/profile", (req, res) => {
+router.get("/:id/profile", (req, res) => {
   if (req.session.currentUser) {
-    const id = req.session.currentUser._id;
+    const { id } = req.params;
+    const isUser = false;
 
     User.findById(id)
       .populate([{
@@ -129,7 +130,33 @@ router.get("/profile", (req, res) => {
       }])
       .then((userFromDB) => {
         console.log("User found for profile: ", userFromDB);
-        res.render("users/user-profile", { user: userFromDB });
+        res.render("users/user-profile", { user: userFromDB, isUser });
+      })
+      .catch((error) => console.log("Error retrieving user profile: ", error));
+  } else {
+    res.redirect("/auth/login");
+  }
+});
+
+
+// USER PROFILE /////////////////////////////////
+
+router.get("/profile", (req, res) => {
+  if (req.session.currentUser) {
+    const id = req.session.currentUser._id;
+    const isUser = true;
+
+    User.findById(id)
+      .populate([{
+        path: 'eventsHosting', 
+        model: 'Event'
+      }, {
+        path: 'eventsAttending',
+        model: 'Event'
+      }])
+      .then((userFromDB) => {
+        console.log("User found for profile: ", userFromDB);
+        res.render("users/user-profile", { user: userFromDB, isUser });
       })
       .catch((error) => console.log("Error retrieving user profile: ", error));
   } else {

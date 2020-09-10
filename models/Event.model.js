@@ -23,14 +23,13 @@ const eventSchema = new Schema(
     },
     address: {
       type: String,
-      //required: [true, 'Please add an address']
+      required: [true, 'Please add an address']
     },
     city:{
       type: String,
     },
     location: {
       type: {
-        //type: Schema.Types.ObjectId, ref: 'City'
         type: String,
         enum: ['Point']
       },

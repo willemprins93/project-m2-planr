@@ -227,6 +227,13 @@ p {
     object-fit: cover;
 }
 
+#comment-photo {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 #user-banner {
     padding: 10px;
     margin-bottom: 20px;
