@@ -192,11 +192,14 @@ router.get("/:id", (req, res) => {
         const justDate = format(foundEvent.date, "dd/MM/yyyy");
         const justTime = format(foundEvent.date, "HH:mm");
 
-        // const isAttending = false;
+        let isAttending = false;
 
-        // if (foundEvent.attendees.includes(currentUserId.toString())) {
-        //   isAttending = true;
-        // }
+        foundEvent.attendees.forEach(attendee => {
+          if (attendee._id.toString() === req.session.currentUser._id.toString()) {
+            isAttending = true;
+            console.log('USER FOUND IN ATTENDING')
+          }
+        })
 
         if (
           foundEvent.host &&
@@ -207,7 +210,7 @@ router.get("/:id", (req, res) => {
             event: foundEvent,
             currentUser,
             isHosting,
-            // isAttending,
+            isAttending,
             justDate,
             justTime,
           });
@@ -216,7 +219,7 @@ router.get("/:id", (req, res) => {
           res.render("events/events-detail", {
             event: foundEvent,
             currentUser,
-            // isAttending,
+            isAttending,
             justDate,
             justTime,
           });
@@ -273,30 +276,6 @@ router.post("/:id/comment", (req, res) => {
         .catch(err => console.log('Error updating event with comment: ', err))
     })
     .catch(err => console.log('Error creating comment: ', err))
-
-  // Event.findByIdAndUpdate(id, { user, text }, { new: true })
-  //   .then((createdComment) => {
-  //     console.log("Comment created : ", createdComment);
-  //     res.render("events/events-detail", {
-  //       //res.redirect(`/events/events-detail/${createdComment._id}`);
-  //     });
-  //   })
-  //   .catch((err) => console.log(`Err while creating a comment : ${err}`));
-
-  // .then(dbEvents => {
-  //   let newComment;
-  //   // saving new comments
-  //   newComment
-  //   .save()
-  //   .then(dbComment => {
-  //     // adding this comment to the list of comments
-  //     dbEvents.comments.push(dbComment._id);
-  //     // save changes in the event
-  //     dbEvents
-  //       .save()       // 5. if everything is ok, we redirect to the same page to see the comment
-  //       .then(createdComment => res.redirect(`/events/${createdComment._id}`))
-  //   });
-  // });
 });
 
 // ATTEND/BOOK EVENT //////////////////////////////////////
@@ -327,5 +306,35 @@ router.post("/:id", (req, res) => {
       console.log("Error while updating event: ", error);
     });
 });
+
+// CANCEL EVENT /////////////////////////////////////////
+
+router.post("/:id/cancel", (req, res) => {
+  const { id } = req.params;
+
+  const userId = req.session.currentUser._id;
+
+  Event.findByIdAndUpdate(
+    id,
+    { $pull: { attendees: userId } },
+    { new: true }
+  )
+    .then((updatedEvent) => {
+      User.findByIdAndUpdate(
+        userId,
+        { $pull: { eventsAttending: updatedEvent._id } },
+        { new: true }
+      ).then((updatedUser) => {
+        req.session.currentUser = updatedUser;
+        res.redirect(`/events/${id}`);
+        console.log("Updated event: ", updatedEvent);
+        console.log("Updated user: ", updatedUser);
+      });
+    })
+    .catch((error) => {
+      console.log("Error while updating event: ", error);
+    });
+});
+
 
 module.exports = router;
