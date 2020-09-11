@@ -16,7 +16,7 @@ async function loadMap() {
   map.on("load", function () {
     // Add an image to use as a custom marker
     map.loadImage(
-      "../images/planr_marker.png",
+      "../images/planr_marker_rounded.png",
       function (error, image) {
         if (error) throw error;
         map.addImage("custom-marker", image);
