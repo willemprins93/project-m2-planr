@@ -16,7 +16,7 @@
                     <p class="text-justify"><b>City: </b> {{event.city}}</p>
                     <p class="text-justify"><b>Location: </b> {{event.location.formattedAddress}}</p>
                     <p class="text-justify"><b>Date and Time: </b> {{justDate}} at {{justTime}}</p>
-                    <p class="text-justify"><b>Host:</b> <a href="/auth/{{this._id}}/profile">
+                    <p class="text-justify"><b>Host:</b> <a href="/auth/{{event.host._id}}/profile">
                         <img src="{{event.host.photoUrl}}" alt="{{event.host.name.firstName}}" id="photo-icon"></a></p>
                     <p class="text-justify"><b>Attendees: </b> {{#each event.attendees}}
                         <a href="/auth/{{this._id}}/profile" ><img src="{{this.photoUrl}}" id="photo-icon"></a>
