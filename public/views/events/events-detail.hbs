@@ -30,7 +30,7 @@
             <!-- Buttons -->
             <div class="container">
                 <div class="container" id="event-buttons">
-                    {{#if isAttending}}
+                    {{!-- {{#if isAttending}}
                     <form action='/events/{{event._id}}' method='post'>
                         <button type="submit" class="btn btn-danger">Cancel</button>
                     </form>
@@ -38,7 +38,10 @@
                     <form action='/events/{{event._id}}' method='post'>
                         <button type="submit" class="btn btn-primary">Book</button>
                     </form>
-                    {{/if}}
+                    {{/if}} --}}
+                    <form action='/events/{{event._id}}' method='post'>
+                        <button type="submit" class="btn btn-primary">Book</button>
+                    </form>
 
                     {{#if isHosting}}
                     <form action='/events/{{event._id}}/edit' method='get'>
