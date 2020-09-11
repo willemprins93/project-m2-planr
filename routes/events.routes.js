@@ -207,7 +207,7 @@ router.get("/:id", (req, res) => {
             event: foundEvent,
             currentUser,
             isHosting,
-            isAttending,
+            // isAttending,
             justDate,
             justTime,
           });
@@ -216,7 +216,7 @@ router.get("/:id", (req, res) => {
           res.render("events/events-detail", {
             event: foundEvent,
             currentUser,
-            isAttending,
+            // isAttending,
             justDate,
             justTime,
           });
