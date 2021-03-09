@@ -3,7 +3,23 @@
 ## Description
 
 Planr is a social meetup app, where you can filter by city or type, create events, attend existing ones and leave comments.
- 
+
+
+[Live Demo](https://planr-deploy.herokuapp.com)
+
+## Technologies
+
+- HTML
+- CSS
+- Javascript 
+- Node JS
+- Express JS
+- Mongoose
+- Mongo DB
+- Mapbox api
+- Cloudinary api
+- Bootstrap
+
 ## User Stories
 
 - **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
